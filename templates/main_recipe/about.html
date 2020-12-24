@@ -9,6 +9,11 @@
     {% endblock %}
 </head>
 <body>
-
+    {% block content %}
+        <h1>{{ about_title }}</h1>
+        <p>
+            {{ about_text }}
+        </p>
+    {% endblock %}
 </body>
 </html>
