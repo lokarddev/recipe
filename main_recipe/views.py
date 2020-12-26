@@ -10,7 +10,7 @@ class HomeView(View):
         context = {
 
         }
-        return render(request, template_name='main_recipe/home.html', context=context)
+        return render(request, template_name='home.html', context=context)
 
 
 class CategoryView(View):
@@ -19,7 +19,7 @@ class CategoryView(View):
         context = {
 
         }
-        return render(request, template_name='main_recipe/category.html', context=context)
+        return render(request, template_name='category.html', context=context)
 
 
 class ConstructorView(View):
@@ -29,7 +29,7 @@ class ConstructorView(View):
         context = {
 
         }
-        return render(request, template_name='main_recipe/constructor.html', context=context)
+        return render(request, template_name='constructor.html', context=context)
 
 
 class AboutView(View):
@@ -43,8 +43,7 @@ class AboutView(View):
             }
         # for situations when we haven't any objects at the table.
         except ObjectDoesNotExist:
-            title = None
             context = {
 
             }
-        return render(request, template_name='main_recipe/about.html', context=context)
+        return render(request, template_name='about.html', context=context)

@@ -1,17 +1,19 @@
-{% extends 'main_recipe/base.html' %}
-{% include 'main_recipe/base.html'%}
-{% load static%}
+{% extends 'base.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     {% block meta %}
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>About</title>
     {% endblock %}
 </head>
 <body>
     {% block content %}
-{#        {% for topic in  %}#}
+        <h1>{{ about_title }}</h1>
+        <p>
+            {{ about_text }}
+        </p>
     {% endblock %}
 </body>
 </html>

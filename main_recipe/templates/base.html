@@ -11,29 +11,34 @@
 <body>
     {% block header %}
         <div class="accordion-header bg-light text-dark">
-            <h1>Recipe project</h1>
-            <nav class="navbar navbar-expand navbar-light">
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href={% url 'home' %}>Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href={% url 'category' %}>Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href={% url 'constructor' %}>Constructor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href={% url 'about' %}>About</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <div class="container justify-content-center">
+                <h1>Recipe project</h1>
+                <nav class="navbar navbar-expand navbar-light">
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href={% url 'home' %}>Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href={% url 'category' %}>Category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href={% url 'constructor' %}>Constructor</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href={% url 'about' %}>About</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
         </div>
     {% endblock %}
+    <div class="container justify-content-center">
         {% block content %}
         {% endblock %}
+    </div>
+
     {% block footer %}
         <footer class="bg-light text-center text-lg-start fixed-bottom">
             <!-- Grid container -->
