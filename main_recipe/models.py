@@ -6,6 +6,8 @@ class CopyrightInfo(models.Model):
     copyright_title = models.CharField(max_length=150)
     copyright_text = models.TextField()
     copyright_link = models.CharField(max_length=100)
+    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __repr__(self):
         return self.copyright_title
@@ -18,6 +20,8 @@ class AboutInfo(models.Model):
     """Topic with content at page ABOUT"""
     about_title = models.CharField(max_length=100)
     about_text = models.TextField()
+    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __repr__(self):
         return self.about_title
@@ -41,8 +45,8 @@ class RecipeInfo(models.Model):
     """Recipe itself"""
     recipe_title = models.CharField(max_length=100)
     recipe_text = models.TextField()
-    created = models.DateTimeField(auto_created=True)
-    modified = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     def __repr__(self):
         return self.recipe_title
@@ -55,8 +59,8 @@ class TopicInfo(models.Model):
     """Random topic with content. Able to have "recipe model" info inside"""
     topic_title = models.CharField(max_length=150)
     topic_text = models.TextField()
-    created = models.DateTimeField(auto_created=True)
-    modified = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     def __repr__(self):
         return self.topic_title

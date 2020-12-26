@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from .models import *
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class HomeView(View):
@@ -34,9 +35,16 @@ class ConstructorView(View):
 class AboutView(View):
     """Single page with information about the project"""
     def get(self, request):
-        title = AboutInfo.objects.get(pk=1)
-        context = {
-            'about_title': title.about_title,
-            'about_text': title.about_text
-        }
+        try:
+            title = AboutInfo.objects.latest('modified')
+            context = {
+                'about_title': title.about_title,
+                'about_text': title.about_text
+            }
+        # for situations when we haven't any objects at the table.
+        except ObjectDoesNotExist:
+            title = None
+            context = {
+
+            }
         return render(request, template_name='main_recipe/about.html', context=context)
