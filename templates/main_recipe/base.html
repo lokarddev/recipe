@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale='1.0'">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <title>Recipe project</title>
+</head>
+<body>
+    {% include 'main_recipe/include/header.html' %}
+        <div class="container justify-content-center">
+            {% block content %}
+            {% endblock %}
+        </div>
+    {% include 'main_recipe/include/footer.html' %}
+</body>
+</html>
