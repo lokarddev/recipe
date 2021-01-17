@@ -3,7 +3,7 @@
         <div>
             <ul class="list-group list-group-horizontal">
                 {% for topic in topics %}
-                    <li class="list-group-item">{{ topic.topic_title }}</li>
+                    <li class="list-group-item col-md-4">{{ topic.topic_title }}</li>
                 {% endfor %}
             </ul>
             <hr>
@@ -11,7 +11,7 @@
         <div>
             <ul class="list-group list-group-horizontal">
                 {% for recipe in recipes %}
-                    <li class="list-group-item">{{ recipe.recipe_title }}</li>
+                    <li class="list-group-item col-md-4">{{ recipe.recipe_title }}</li>
                 {% endfor %}
             </ul>
         </div>

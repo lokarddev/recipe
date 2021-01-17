@@ -1,0 +1,10 @@
+{% extends 'main_recipe/base.html' %}
+    {% block content %}
+        <ul class="list-group">
+            {% for recipe in recipes %}
+                <li class="list-group-item">
+                    <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.recipe_title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endblock %}

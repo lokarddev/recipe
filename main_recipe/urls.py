@@ -6,15 +6,17 @@ from django.contrib.flatpages import views
 
 
 urlpatterns = [
-    path('home/', HomeView.as_view(), name='home'),
+    path('', HomeView.as_view(), name='home'),
     path('category/', CategoryView.as_view(), name='category'),
     path('constructor/', ConstructorView.as_view(), name='constructor'),
+    path('category/<int:pk>/', CategoryList.as_view(), name='category_list'),
+    path('topic_detail/<int:pk>', TopicDetail.as_view(), name='topic_detail'),
+    path('resipe_detail/<int:pk>', RecipeDetail.as_view(), name='recipe_detail')
 ]
 
 
 urlpatterns += [
-    path('about/', views.flatpage, {'url': '/about/'}, name='about'),
-
+    path('about/', views.flatpage, {'url': '/about/'}, name='about')
 ]
 
 

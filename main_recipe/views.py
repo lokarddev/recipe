@@ -31,3 +31,30 @@ class ConstructorView(View):
 
         }
         return render(request, template_name='main_recipe/constructor.html', context=context)
+
+
+class TopicDetail(View):
+    """Detailed description page of the choosen TOPIC"""
+    def get(self, request, pk):
+        context = {
+            'topic': Topic.objects.get(id=pk)
+        }
+        return render(request, template_name='main_recipe/topic_detail.html', context=context)
+
+
+class RecipeDetail(View):
+    """Detailed description page of the choosen RECIPE"""
+    def get(self, request, pk):
+        context = {
+            'recipe': Recipe.objects.get(id=pk)
+        }
+        return render(request, template_name='main_recipe/recipe_detail.html', context=context)
+
+
+class CategoryList(View):
+    """List of recipes from concrete chosen CATEGORY"""
+    def get(self, request, pk):
+        context = {
+            'recipes': Recipe.objects.filter(category__id=pk)
+        }
+        return render(request, template_name='main_recipe/category_list.html', context=context)
