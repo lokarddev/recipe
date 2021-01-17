@@ -1,4 +1,18 @@
 {% extends 'main_recipe/base.html' %}
     {% block content %}
-{#        {% for topic in  %}#}
+        <div>
+            <ul class="list-group list-group-horizontal">
+                {% for topic in topics %}
+                    <li class="list-group-item">{{ topic.topic_title }}</li>
+                {% endfor %}
+            </ul>
+            <hr>
+        </div>
+        <div>
+            <ul class="list-group list-group-horizontal">
+                {% for recipe in recipes %}
+                    <li class="list-group-item">{{ recipe.recipe_title }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endblock %}

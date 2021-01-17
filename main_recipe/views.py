@@ -8,18 +8,19 @@ class HomeView(View):
     """The main page of the site. Contains the latest 4 recipes as table of cards"""
     def get(self, request):
         context = {
-
+            'topics': Topic.objects.all()[:3],
+            'recipes': Recipe.objects.all()[:3]
         }
-        return render(request, template_name='../templates/main_recipe/home.html', context=context)
+        return render(request, template_name='main_recipe/home.html', context=context)
 
 
 class CategoryView(View):
     """Category page with a table of cards ordered by their category. Every card is a link contains a list of recipes"""
     def get(self, request):
         context = {
-
+            'categories': Category.objects.all()
         }
-        return render(request, template_name='../templates/main_recipe/category.html', context=context)
+        return render(request, template_name='main_recipe/category.html', context=context)
 
 
 class ConstructorView(View):
@@ -29,4 +30,4 @@ class ConstructorView(View):
         context = {
 
         }
-        return render(request, template_name='../templates/main_recipe/constructor.html', context=context)
+        return render(request, template_name='main_recipe/constructor.html', context=context)

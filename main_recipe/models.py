@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class CopyrightInfo(models.Model):
+class Copyright(models.Model):
     """Information about copyrights in FOOTER of the site"""
     copyright_title = models.CharField(max_length=150)
     copyright_text = models.TextField()
@@ -16,7 +16,7 @@ class CopyrightInfo(models.Model):
         return self.copyright_title
 
 
-class ProductInfo(models.Model):
+class Ingredient(models.Model):
     """The name of ingredient used in a recipe"""
     product_title = models.CharField(max_length=50)
 
@@ -27,12 +27,24 @@ class ProductInfo(models.Model):
         return self.product_title
 
 
-class RecipeInfo(models.Model):
+class Category(models.Model):
+    """All available categories"""
+    title = models.CharField('Category', max_length=100)
+
+    def __repr__(self):
+        return self.title
+
+    def __str__(self):
+        return self.title
+
+
+class Recipe(models.Model):
     """Recipe itself"""
     recipe_title = models.CharField(max_length=100)
     recipe_text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
     def __repr__(self):
         return self.recipe_title
@@ -41,7 +53,7 @@ class RecipeInfo(models.Model):
         return self.recipe_title
 
 
-class TopicInfo(models.Model):
+class Topic(models.Model):
     """Random topic with content. Able to have "recipe model" info inside"""
     topic_title = models.CharField(max_length=150)
     topic_text = models.TextField()
