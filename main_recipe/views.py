@@ -30,20 +30,3 @@ class ConstructorView(View):
 
         }
         return render(request, template_name='../templates/main_recipe/constructor.html', context=context)
-
-
-class AboutView(View):
-    """Single page with information about the project"""
-    def get(self, request):
-        try:
-            title = AboutInfo.objects.latest('modified')
-            context = {
-                'about_title': title.about_title,
-                'about_text': title.about_text
-            }
-        # for situations when we haven't any objects at the table.
-        except ObjectDoesNotExist:
-            context = {
-
-            }
-        return render(request, template_name='../templates/main_recipe/about.html', context=context)

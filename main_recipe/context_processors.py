@@ -1,5 +1,6 @@
 from .models import *
 from django.core.exceptions import ObjectDoesNotExist
+# we use this file for managing the template variables and creating new carries remotely here
 
 
 def add_variable(request):

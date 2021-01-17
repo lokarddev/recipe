@@ -16,20 +16,6 @@ class CopyrightInfo(models.Model):
         return self.copyright_title
 
 
-class AboutInfo(models.Model):
-    """Topic with content at page ABOUT"""
-    about_title = models.CharField(max_length=100)
-    about_text = models.TextField()
-    modified = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
-
-    def __repr__(self):
-        return self.about_title
-
-    def __str__(self):
-        return self.about_title
-
-
 class ProductInfo(models.Model):
     """The name of ingredient used in a recipe"""
     product_title = models.CharField(max_length=50)
