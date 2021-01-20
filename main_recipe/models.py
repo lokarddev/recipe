@@ -2,9 +2,9 @@ from django.db import models
 
 
 class Copyright(models.Model):
-    """Information about copyrights in FOOTER of the site"""
-    copyright_title = models.CharField(max_length=150)
-    copyright_text = models.TextField()
+    """Информация об авторских правах проекта"""
+    copyright_title = models.CharField('Название', max_length=150)
+    copyright_text = models.TextField('Описание авторских прав')
     copyright_link = models.CharField(max_length=100)
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -15,53 +15,84 @@ class Copyright(models.Model):
     def __str__(self):
         return self.copyright_title
 
+    class Meta:
+        verbose_name = 'Авторские права'
+        verbose_name_plural = 'Авторские права'
+
 
 class Ingredient(models.Model):
-    """The name of ingredient used in a recipe"""
-    product_title = models.CharField(max_length=50)
+    """Ингридиент используемый в рецептах"""
+    title = models.CharField('название продукта/ингридиента', max_length=50, default='Title')
+    description = models.TextField('Описание продукта/ингридиента', default='Description')
+    image = models.ImageField('Изображение', upload_to='ingredient/', null=True)
 
     def __repr__(self):
-        return self.product_title
+        return self.title
 
     def __str__(self):
-        return self.product_title
+        return self.title
+
+    class Meta:
+        verbose_name = 'Ингридиент'
+        verbose_name_plural = 'Ингридиенты'
 
 
 class Category(models.Model):
-    """All available categories"""
-    title = models.CharField('Category', max_length=100)
+    """Категории доступные  для сортировки"""
+    title = models.CharField('Категория', max_length=100)
+    description = models.TextField('Описание категории', null=True)
+    image = models.ImageField('Изображение', upload_to='category/', null=True)
 
     def __repr__(self):
         return self.title
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
 
 
 class Recipe(models.Model):
-    """Recipe itself"""
-    recipe_title = models.CharField(max_length=100)
-    recipe_text = models.TextField()
+    """Рецепт блюда"""
+    recipe_title = models.CharField('Название рецепта', max_length=100)
+    recipe_text = models.TextField('Описание рецепта')
+    image = models.ImageField('Изображение', upload_to='recipe/', null=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    url = models.SlugField(max_length=100, unique=True, null=True)
+    draft = models.BooleanField('Черновик', default=False)
 
     def __repr__(self):
         return self.recipe_title
 
     def __str__(self):
         return self.recipe_title
+
+    class Meta:
+        verbose_name = 'Рецепт'
+        verbose_name_plural = 'Рецепты'
 
 
 class Topic(models.Model):
-    """Random topic with content. Able to have "recipe model" info inside"""
-    topic_title = models.CharField(max_length=150)
-    topic_text = models.TextField()
+    """Произвольная статья по теме рецептов отображаемая на главной странице"""
+    topic_title = models.CharField('Название статьи', max_length=150)
+    topic_text = models.TextField('Текст статьи')
+    image = models.ImageField('Изображение', upload_to='topic/', null=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    recipe = models.ManyToManyField(Recipe, verbose_name='рецепт', blank=True)
+    url = models.SlugField(max_length=100, unique=True, null=True)
+    draft = models.BooleanField('Черновик', default=False)
 
     def __repr__(self):
         return self.topic_title
 
     def __str__(self):
         return self.topic_title
+
+    class Meta:
+        verbose_name = 'Статья'
+        verbose_name_plural = 'Статьи'
