@@ -1,13 +1,9 @@
-.lokard {
-    width: 100px;
-    height: 100px;
-    border: 10px black;
-    background-color: blue;
+.banner {
+    background: url("../banner.png");
 }
 
-.banner {
-    background: url("../banner.png") no-repeat;
-    height: auto;
-    width: 1920px;
-    background-size: cover;
+.padding_narrow {
+    padding: 1px;
+    margin: 1px;
+    background-color: black;
 }

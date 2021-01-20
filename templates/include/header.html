@@ -1,25 +1,25 @@
-    {% block header %}
-        <div class="accordion-header bg-light text-dark banner">
+ {% block header %}
+        <div class="accordion-header bg-light text-dark">
             <div class="container justify-content-center">
                 <h1>Recipe project</h1>
                 <nav class="navbar navbar-expand navbar-light">
                     <div class="">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href={% url 'home' %}>Home</a>
+                                <a class="nav-link" href={% url 'home' %}>Главная</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href={% url 'category' %}>Category</a>
+                                <a class="nav-link" href={% url 'category' %}>Категории</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href={% url 'constructor' %}>Constructor</a>
+                                <a class="nav-link" href={% url 'constructor' %}>Конструктор</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href={% url 'about' %}>About</a>
+                                <a class="nav-link" href={% url 'about' %}>О нас</a>
                             </li>
                         </ul>
                     </div>
                 </nav>
             </div>
         </div>
-    {% endblock %}
+{% endblock %}
