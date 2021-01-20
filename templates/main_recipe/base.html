@@ -10,9 +10,11 @@
 </head>
 <body>
     {% include 'include/header.html' %}
+    <div class="bg-image position-fixed" style="background-image: url('/static/texture.jpg'); height: 100%; width: 100%">
         <div class="container justify-content-center">
             {% block content %}
             {% endblock %}
         </div>
+    </div>
 </body>
 </html>

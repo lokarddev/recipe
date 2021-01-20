@@ -1,10 +1,11 @@
  {% block header %}
-        <div class="accordion-header bg-light text-dark">
+    <div class="bg-image" style="background-image: url('/static/banner.jpg')">
+        <div class="accordion-header text-light">
             <div class="container justify-content-center">
                 <h1>Recipe project</h1>
-                <nav class="navbar navbar-expand navbar-light">
-                    <div class="">
-                        <ul class="navbar-nav mr-auto">
+                <nav class="navbar navbar-expand navbar-dark text-white">
+                    <div class="text-white">
+                        <ul class="navbar-nav mr-auto text-white">
                             <li class="nav-item">
                                 <a class="nav-link" href={% url 'home' %}>Главная</a>
                             </li>
@@ -22,4 +23,5 @@
                 </nav>
             </div>
         </div>
+    </div>
 {% endblock %}
