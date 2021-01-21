@@ -1,10 +1,14 @@
 {% extends 'main_recipe/base.html' %}
     {% block content %}
-        <ul class="list-group list-group-horizontal-lg">
-        {% for category in categories %}
-            <li class="list-group-item">
-                <a href="{% url 'category_list' category.id %}">{{ category.title }}</a>
-            </li>
-        {% endfor %}
-        </ul>
+            <div class="row mt-3 justify-content-center">
+                {% for category in categories %}
+                    <div class="card mx-2 mb-2 text-center" style="max-width: 30%">
+                            <img class="card-img-top mt-3" src='{{ category.image.url }}' alt="{{ category.title }}" style="height: 300px; width: available">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ category.title }}</h5>
+                                <a href="{% url 'category_list' category.id %}" class="btn btn-primary" style="font-size: 14px">Перейти к категории</a>
+                            </div>
+                    </div>
+                {% endfor %}
+            </div>
     {% endblock %}
