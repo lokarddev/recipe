@@ -2,7 +2,7 @@
     {% block content %}
             <div class="row mt-3 justify-content-center">
                 {% for category in categories %}
-                    <div class="card mx-2 mb-2 text-center" style="max-width: 30%">
+                    <div class="card mx-2 mb-2 text-center shadow" style="max-width: 30%">
                             <img class="card-img-top mt-3" src='{{ category.image.url }}' alt="{{ category.title }}" style="height: 300px; width: available">
                             <div class="card-body">
                                 <h5 class="card-title">{{ category.title }}</h5>

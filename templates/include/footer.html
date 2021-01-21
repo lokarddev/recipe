@@ -1,18 +1,18 @@
 {% block footer %}
-    <div class="bg-image" style="background-image: url('/static/texture.jpg'); opacity: 80%">
+    <div class="bg-image" style="background-image: url('/static/texture.jpg'); opacity: 85%">
         <footer class="text-lg-start fixed-bottom">
-            <div class="container p-4">
+            <div class="container p-4 shadow">
                 <!-- Grid row -->
                 <div class="row">
                     <!-- Grid column -->
-                    <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <div class="col-lg-6 col-md-12 mb-4 mt-4 mb-md-0">
                         <h6 class="text-uppercase" style="font-size: 13px">{{ copyrights.copyright_title}}</h6>
                         <p style="font-size: 10px">{{ copyrights.copyright_text }}</p>
                     </div>
                     <!-- Another grid column -->
                     <!-- Copyrights -->
-                    <div class="col-lg-6">
-                        <div class="text-center p-3" style="background-color: grey; font-size: 13px">
+                    <div class="col-lg-6 mb-4 mt-4 rounded">
+                        <div class="text-center p-3 rounded-2 shadow" style="background-color: grey; font-size: 13px">
                             @ Автор проекта
                             <a class="text-dark" href="https://github.com/lokarddev">{{ copyrights.copyright_link }}</a>
                         </div>

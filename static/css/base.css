@@ -7,3 +7,7 @@
     margin: 1px;
     background-color: black;
 }
+
+.nav_item {
+    text-shadow: 2px 2px 2px black;
+}
