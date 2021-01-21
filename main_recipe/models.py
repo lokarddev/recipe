@@ -58,7 +58,9 @@ class Recipe(models.Model):
     """Рецепт блюда"""
     recipe_title = models.CharField('Название рецепта', max_length=100)
     recipe_text = models.TextField('Описание рецепта')
-    image = models.ImageField('Изображение', upload_to='recipe/', null=True)
+    image1 = models.ImageField('Изображение1', upload_to='recipe/', null=True)
+    image2 = models.ImageField('Изображение2', upload_to='recipe/', null=True, blank=True)
+    image3 = models.ImageField('Изображение3', upload_to='recipe/', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
@@ -80,7 +82,9 @@ class Topic(models.Model):
     """Произвольная статья по теме рецептов отображаемая на главной странице"""
     topic_title = models.CharField('Название статьи', max_length=150)
     topic_text = models.TextField('Текст статьи')
-    image = models.ImageField('Изображение', upload_to='topic/', null=True)
+    image1 = models.ImageField('Изображение1', upload_to='topic/', null=True)
+    image2 = models.ImageField('Изображение2', upload_to='topic/', null=True, blank=True)
+    image3 = models.ImageField('Изображение3', upload_to='topic/', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     recipe = models.ManyToManyField(Recipe, verbose_name='рецепт', blank=True)
