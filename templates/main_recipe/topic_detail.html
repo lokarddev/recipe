@@ -1,13 +1,13 @@
 {% extends 'main_recipe/base.html' %}
     {% block content %}
         <h3>{{ topic.topic_title }}</h3>
-        <div class="row-cols-2">
+        <div class="row">
             <div class="col-md-8">
                 <p>{{ topic.topic_text }}</p>
             </div>
             <div class="col-md-4">
-                {% for image in images %}
-                    <img src="{% url 'topic.image.url' %}" alt="{{ topic.topic_title }}" class="mb-5 mt-5 shadow">
+                {% for object in topic.get_queryset_image %}
+                    <img src="{{ object.image.url }}" alt="{{ topic.topic_title }}" class="mb-5 mt-5 shadow" style="height: 250px; width: 250px">
                 {% endfor %}
             </div>
         </div>

@@ -58,9 +58,6 @@ class Recipe(models.Model):
     """Рецепт блюда"""
     recipe_title = models.CharField('Название рецепта', max_length=100)
     recipe_text = models.TextField('Описание рецепта')
-    image1 = models.ImageField('Изображение1', upload_to='recipe/', null=True)
-    image2 = models.ImageField('Изображение2', upload_to='recipe/', null=True, blank=True)
-    image3 = models.ImageField('Изображение3', upload_to='recipe/', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
@@ -82,14 +79,17 @@ class Topic(models.Model):
     """Произвольная статья по теме рецептов отображаемая на главной странице"""
     topic_title = models.CharField('Название статьи', max_length=150)
     topic_text = models.TextField('Текст статьи')
-    image1 = models.ImageField('Изображение1', upload_to='topic/', null=True)
-    image2 = models.ImageField('Изображение2', upload_to='topic/', null=True, blank=True)
-    image3 = models.ImageField('Изображение3', upload_to='topic/', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     recipe = models.ManyToManyField(Recipe, verbose_name='рецепт', blank=True)
     url = models.SlugField(max_length=100, unique=True, null=True)
     draft = models.BooleanField('Черновик', default=False)
+
+    def get_main_image(self):
+        return self.topicimage_set.all()[0]
+
+    def get_queryset_image(self):
+        return self.topicimage_set.all()
 
     def __repr__(self):
         return self.topic_title
@@ -100,3 +100,19 @@ class Topic(models.Model):
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
+
+
+class TopicImage(models.Model):
+    image = models.ImageField('Изображение', upload_to='topic/', null=True)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.topic.topic_title
+
+
+class RecipeImage(models.Model):
+    image = models.ImageField('Изображение', upload_to='recipe/', null=True)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.recipe.recipe_title
