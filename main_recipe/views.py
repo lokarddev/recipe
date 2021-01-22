@@ -37,7 +37,7 @@ class TopicDetail(View):
     """Detailed description page of the choosen TOPIC"""
     def get(self, request, pk):
         context = {
-            'topic': Topic.objects.get(id=pk)
+            'topic': Topic.objects.get(id=pk),
         }
         return render(request, template_name='main_recipe/topic_detail.html', context=context)
 
@@ -46,7 +46,7 @@ class RecipeDetail(View):
     """Detailed description page of the choosen RECIPE"""
     def get(self, request, pk):
         context = {
-            'recipe': Recipe.objects.get(id=pk)
+            'recipe': Recipe.objects.get(id=pk),
         }
         return render(request, template_name='main_recipe/recipe_detail.html', context=context)
 

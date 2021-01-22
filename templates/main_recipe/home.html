@@ -1,22 +1,31 @@
 {% extends 'main_recipe/base.html' %}
     {% block content %}
         <div>
-            <ul class="list-group list-group-horizontal">
+            <h4 style="text-shadow: 2px 2px 2px antiquewhite">Кулинарные статьи</h4>
+            <div class="row mt-3 justify-content-center">
                 {% for topic in topics %}
-                    <li class="list-group-item col-md-4">
-                        <a href="{% url 'topic_detail' topic.id %}">{{ topic.topic_title }}</a>
-                    </li>
+                    <div class="card mx-2 mb-2 text-center shadow" style="max-width: 30%">
+                            <img class="card-img-top mt-3" src='{{ topic.image1.url }}' alt="{{ topic.topic_title }}" style="height: 300px; width: available">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ topic.topic_title }}</h5>
+                                <a href="{% url 'topic_detail' topic.id %}" class="btn btn-primary" style="font-size: 14px">Читать статью</a>
+                            </div>
+                    </div>
                 {% endfor %}
-            </ul>
-            <hr>
+            </div>
         </div>
         <div>
-            <ul class="list-group list-group-horizontal">
+            <h4 style="text-shadow: 2px 2px 2px antiquewhite">Рецепты</h4>
+            <div class="row mt-3 justify-content-center">
                 {% for recipe in recipes %}
-                    <li class="list-group-item col-md-4">
-                        <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.recipe_title }}</a>
-                    </li>
+                    <div class="card mx-2 mb-2 text-center shadow" style="max-width: 30%">
+                            <img class="card-img-top mt-3" src='{{ recipe.image1.url }}' alt="{{ recipe.recipe_title }}" style="height: 300px; width: available">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ recipe.recipe_title }}</h5>
+                                <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-primary" style="font-size: 14px">Смотреть рецепт</a>
+                            </div>
+                    </div>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
     {% endblock %}

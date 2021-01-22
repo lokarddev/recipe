@@ -1,5 +1,14 @@
 {% extends 'main_recipe/base.html' %}
     {% block content %}
         <h3>{{ topic.topic_title }}</h3>
-        <p>{{ topic.topic_text }}</p>
+        <div class="row-cols-2">
+            <div class="col-md-8">
+                <p>{{ topic.topic_text }}</p>
+            </div>
+            <div class="col-md-4">
+                {% for image in images %}
+                    <img src="{% url 'topic.image.url' %}" alt="{{ topic.topic_title }}" class="mb-5 mt-5 shadow">
+                {% endfor %}
+            </div>
+        </div>
     {% endblock %}
