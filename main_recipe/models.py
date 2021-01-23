@@ -20,23 +20,6 @@ class Copyright(models.Model):
         verbose_name_plural = 'Авторские права'
 
 
-class Ingredient(models.Model):
-    """Ингридиент используемый в рецептах"""
-    title = models.CharField('название продукта/ингридиента', max_length=50, default='Title')
-    description = models.TextField('Описание продукта/ингридиента', default='Description')
-    image = models.ImageField('Изображение', upload_to='ingredient/', null=True)
-
-    def __repr__(self):
-        return self.title
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = 'Ингридиент'
-        verbose_name_plural = 'Ингридиенты'
-
-
 class Category(models.Model):
     """Категории доступные  для сортировки"""
     title = models.CharField('Категория', max_length=100)
@@ -54,6 +37,23 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
 
+class Ingredient(models.Model):
+    """Ингридиент используемый в рецептах"""
+    title = models.CharField('название продукта/ингридиента', max_length=50, default='Title')
+    description = models.TextField('Описание продукта/ингридиента', default='Description')
+    image = models.ImageField('Изображение', upload_to='ingredient/', null=True)
+
+    def __repr__(self):
+        return self.title
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Ингридиент'
+        verbose_name_plural = 'Ингридиенты'
+
+
 class Recipe(models.Model):
     """Рецепт блюда"""
     recipe_title = models.CharField('Название рецепта', max_length=100)
@@ -63,6 +63,13 @@ class Recipe(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     url = models.SlugField(max_length=100, unique=True, null=True)
     draft = models.BooleanField('Черновик', default=False)
+    ingredient = models.ManyToManyField(Ingredient, verbose_name='рецепт', related_name='ingridient')
+
+    def get_main_image(self):
+        return self.recipeimage_set.all()[0]
+
+    def get_queryset_image(self):
+        return self.recipeimage_set.all()
 
     def __repr__(self):
         return self.recipe_title
@@ -107,7 +114,7 @@ class TopicImage(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.topic.topic_title
+        return f'{self.topic.topic_title}' + ' ' + f'{self.id}'
 
 
 class RecipeImage(models.Model):
@@ -115,4 +122,4 @@ class RecipeImage(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.recipe.recipe_title
+        return f'{self.recipe.recipe_title}' + ' ' + f'{self.id}'

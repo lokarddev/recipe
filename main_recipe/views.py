@@ -58,3 +58,21 @@ class CategoryList(View):
             'recipes': Recipe.objects.filter(category__id=pk)
         }
         return render(request, template_name='main_recipe/category_list.html', context=context)
+
+
+class TopicList(View):
+    """Полный список статей на сайте"""
+    def get(self, request):
+        context = {
+            'topics': Topic.objects.order_by('-created')
+        }
+        return render(request, template_name='main_recipe/topic_list.html', context=context)
+
+
+class RecipeList(View):
+    """Полный список рецептов на сайте"""
+    def get(self, request):
+        context = {
+            'recipes': Recipe.objects.order_by('-created')
+        }
+        return render(request, template_name='main_recipe/recipe_list.html', context=context)

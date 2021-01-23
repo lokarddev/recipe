@@ -10,8 +10,10 @@ urlpatterns = [
     path('category/', CategoryView.as_view(), name='category'),
     path('constructor/', ConstructorView.as_view(), name='constructor'),
     path('category/<int:pk>/', CategoryList.as_view(), name='category_list'),
+    path('recipe_list/', RecipeList.as_view(), name='recipe_list'),
+    path('topic_list/', TopicList.as_view(), name='topic_list'),
     path('topic_detail/<int:pk>', TopicDetail.as_view(), name='topic_detail'),
-    path('resipe_detail/<int:pk>', RecipeDetail.as_view(), name='recipe_detail')
+    path('recipe_detail/<int:pk>', RecipeDetail.as_view(), name='recipe_detail'),
 ]
 
 
