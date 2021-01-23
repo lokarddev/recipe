@@ -1,5 +1,8 @@
 {% extends 'main_recipe/base.html' %}
     {% block content %}
         <h3>{{ recipe.recipe_title }}</h3>
+        {% for object in recipe.get_queryset_image %}
+            <img src="{{ object.image.url }}" alt="{{ recipe.recipe_title }}" class="mb-5 mt-5 shadow" style="height: 250px; width: 250px">
+        {% endfor %}
         <p>{{ recipe.recipe_text }}</p>
     {% endblock %}
