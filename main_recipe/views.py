@@ -1,7 +1,8 @@
+from django.db.models import Q
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import ListView
 from .models import *
-from django.core.exceptions import ObjectDoesNotExist
 
 
 class HomeView(View):
@@ -23,18 +24,32 @@ class CategoryView(View):
         return render(request, template_name='main_recipe/category.html', context=context)
 
 
-class ConstructorView(View):
+class GetData:
+    """Класс для обработки запросов к дате"""
+    def get_ingredient(self):
+        return Ingredient.objects.all()
+
+
+class ConstructorView(GetData, ListView):
     """The main feature of the site. Basically works as simple filter page at e-commerce. Contains table of categories
     and list of products to choose from"""
-    def get(self, request):
-        context = {
+    model = Recipe
+    template_name = 'main_recipe/constructor.html'
+    queryset = Recipe.objects.filter(draft=False)
 
-        }
-        return render(request, template_name='main_recipe/constructor.html', context=context)
+
+class FilterView(GetData, ListView):
+    """Фильтр который отображается на странице Constructor.html
+        Показвыает выборку на основе отмеченных ингредиентов."""
+    def get_queryset(self):
+        queryset = Recipe.objects.filter(
+            ingredient__in=self.request.GET.getlist('ingredient')
+        ).distinct()
+        return queryset
 
 
 class TopicDetail(View):
-    """Detailed description page of the choosen TOPIC"""
+    """Detailed description page of the chosen TOPIC"""
     def get(self, request, pk):
         context = {
             'topic': Topic.objects.get(id=pk),
@@ -43,7 +58,7 @@ class TopicDetail(View):
 
 
 class RecipeDetail(View):
-    """Detailed description page of the choosen RECIPE"""
+    """Detailed description page of the chosen RECIPE"""
     def get(self, request, pk):
         context = {
             'recipe': Recipe.objects.get(id=pk),
@@ -69,10 +84,7 @@ class TopicList(View):
         return render(request, template_name='main_recipe/topic_list.html', context=context)
 
 
-class RecipeList(View):
+class RecipeList(GetData, ListView):
     """Полный список рецептов на сайте"""
-    def get(self, request):
-        context = {
-            'recipes': Recipe.objects.order_by('-created')
-        }
-        return render(request, template_name='main_recipe/recipe_list.html', context=context)
+    model = Recipe
+    queryset = Recipe.objects.order_by('-created')

@@ -1,4 +1,17 @@
 {% extends 'main_recipe/base.html' %}
     {% block content %}
-        <h1>This page is now in development</h1>
+        <h3>Конструктор рецептов</h3>
+        <form action="{% url 'filter' %}" method="get">
+            <div>
+                {% for ing in view.get_ingredient %}
+                    <li>
+                        <label>
+                            <input type="checkbox" class="checked" name="ingredient" value="{{ ing.id }}">
+                        </label>
+                        <span>{{ ing.title }}</span>
+                    </li>
+                {% endfor %}
+                <button type="submit">Найти</button>
+            </div>
+        </form>
     {% endblock %}
