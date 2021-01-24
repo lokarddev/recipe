@@ -13,8 +13,9 @@ urlpatterns = [
     path('category/<int:pk>/', CategoryList.as_view(), name='category_list'),
     path('recipe_list/', RecipeList.as_view(), name='recipe_list'),
     path('topic_list/', TopicList.as_view(), name='topic_list'),
-    path('topic_detail/<int:pk>', TopicDetail.as_view(), name='topic_detail'),
-    path('recipe_detail/<int:pk>', RecipeDetail.as_view(), name='recipe_detail'),
+    path('topic_detail/<int:pk>/', TopicDetail.as_view(), name='topic_detail'),
+    path('recipe_detail/<int:pk>/', RecipeDetail.as_view(), name='recipe_detail'),
+    path('review/<int:pk>/', AddTopicReview.as_view(), name='topic_review')
 ]
 
 

@@ -1,8 +1,9 @@
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import ListView
 from .models import *
+from .forms import TopicCommentForm, RecipeCommentForm
 
 
 class HomeView(View):
@@ -51,8 +52,10 @@ class FilterView(GetData, ListView):
 class TopicDetail(View):
     """Detailed description page of the chosen TOPIC"""
     def get(self, request, pk):
+        topic = get_object_or_404(Topic, id=pk)
         context = {
             'topic': Topic.objects.get(id=pk),
+            'comments': topic.review.all()
         }
         return render(request, template_name='main_recipe/topic_detail.html', context=context)
 
@@ -88,3 +91,22 @@ class RecipeList(GetData, ListView):
     """Полный список рецептов на сайте"""
     model = Recipe
     queryset = Recipe.objects.order_by('-created')
+
+
+class AddTopicReview(View):
+    """Контроллер отзыва к статье"""
+    def post(self, request, pk):
+        comment = None
+        topic = get_object_or_404(Topic, id=pk)
+        context = {
+            'topic': topic,
+            'comments': topic.review.all(),
+            'comment': comment
+
+        }
+        form = TopicCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.topic = topic
+            comment.save()
+        return render(request, template_name='main_recipe/topic_detail.html', context=context)

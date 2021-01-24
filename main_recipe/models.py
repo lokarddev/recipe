@@ -123,3 +123,43 @@ class RecipeImage(models.Model):
 
     def __str__(self):
         return f'{self.recipe.recipe_title}' + ' ' + f'{self.id}'
+
+
+class TopicReview(models.Model):
+    """Отзыв о статье"""
+    name = models.CharField('Имя', max_length=50)
+    email = models.EmailField('Почта', max_length=60)
+    body = models.TextField('Тело отзыва', max_length=5000)
+    created = models.DateTimeField(auto_now_add=True)
+    topic = models.ForeignKey(Topic, verbose_name='статья', related_name='review', on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'отзыв'
+        verbose_name_plural = 'отзывы'
+        ordering = ['created']
+
+    def __str__(self):
+        return f'Comment by {self.name}'
+
+    def __repr__(self):
+        return f'Comment by {self.name}'
+
+
+class RecipeReview(models.Model):
+    """Отзыв о рецепте"""
+    name = models.CharField('Имя', max_length=50)
+    email = models.EmailField('Почта', max_length=60)
+    body = models.TextField('Тело отзыва', max_length=5000)
+    created = models.DateTimeField(auto_now_add=True)
+    recipe = models.ForeignKey(Recipe, verbose_name='рецепт', related_name='review', on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'отзыв'
+        verbose_name_plural = 'отзывы'
+        ordering = ['created']
+
+    def __str__(self):
+        return f'Comment by {self.name}'
+
+    def __repr__(self):
+        return f'Comment by {self.name}'
