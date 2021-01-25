@@ -4,7 +4,7 @@
             <div class="container justify-content-center">
                 <h1 style="text-shadow: 2px 2px 2px black; color: #fff6e9">Recipe project</h1>
                 <nav class="navbar navbar-expand navbar-dark text-white">
-                    <div class="text-white">
+                    <div class="text-white col-md-5">
                         <ul class="navbar-nav mr-auto text-white">
                             <li class="nav-item">
                                 <a class="nav-link" href={% url 'home' %}>Главная</a>
@@ -21,6 +21,13 @@
                         </ul>
                     </div>
                 </nav>
+                <div class="mb-2 pb-2">
+                    <form action="{% url 'search' %}" method="get">
+                        <label>
+                            <input name="search" type="text" placeholder="Поиск...">
+                        </label>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

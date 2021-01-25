@@ -7,7 +7,7 @@ from .forms import TopicCommentForm, RecipeCommentForm
 
 
 class HomeView(View):
-    """The main page of the site. Contains the latest 4 recipes as table of cards"""
+    """Главная страница сайта. Содержит две таблицы с данными рецептов/статей в виде карточек"""
     def get(self, request):
         context = {
             'topics': Topic.objects.all()[:3],
@@ -17,7 +17,7 @@ class HomeView(View):
 
 
 class CategoryView(View):
-    """Category page with a table of cards ordered by their category. Every card is a link contains a list of recipes"""
+    """Страница категорий рецептов"""
     def get(self, request):
         context = {
             'categories': Category.objects.all()
@@ -32,8 +32,7 @@ class GetData:
 
 
 class ConstructorView(GetData, ListView):
-    """The main feature of the site. Basically works as simple filter page at e-commerce. Contains table of categories
-    and list of products to choose from"""
+    """Основной страница фильтра рецептов по категориям и содержащимся продуктам. Отображает форму для фильтрации"""
     model = Recipe
     template_name = 'main_recipe/constructor.html'
     queryset = Recipe.objects.filter(draft=False)
@@ -50,7 +49,7 @@ class FilterView(GetData, ListView):
 
 
 class TopicDetail(View):
-    """Detailed description page of the chosen TOPIC"""
+    """Детальное описание выбранной статьи"""
     def get(self, request, pk):
         topic = get_object_or_404(Topic, id=pk)
         context = {
@@ -61,7 +60,7 @@ class TopicDetail(View):
 
 
 class RecipeDetail(View):
-    """Detailed description page of the chosen RECIPE"""
+    """Детальное описание выбранного рецепта"""
     def get(self, request, pk):
         context = {
             'recipe': Recipe.objects.get(id=pk),
@@ -70,7 +69,7 @@ class RecipeDetail(View):
 
 
 class CategoryList(View):
-    """List of recipes from concrete chosen CATEGORY"""
+    """Список рецептов в выбранной категории"""
     def get(self, request, pk):
         context = {
             'recipes': Recipe.objects.filter(category__id=pk)
@@ -110,3 +109,17 @@ class AddTopicReview(View):
             comment.topic = topic
             comment.save()
         return render(request, template_name='main_recipe/topic_detail.html', context=context)
+
+
+class SearchView(ListView):
+    """Поиск рецептов из общего списка"""
+    model = Recipe
+    template_name = 'main_recipe/search_list.html'
+
+    def get_queryset(self):
+        """Обработка запроса с фронтенда (в виде введенного пользователем текста) и фильтрация"""
+        query = self.request.GET.get('search')
+        recipe_list = Recipe.objects.filter(
+            recipe_title__icontains=query
+        )
+        return recipe_list

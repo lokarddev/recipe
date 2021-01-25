@@ -10,6 +10,7 @@ urlpatterns = [
     path('category/', CategoryView.as_view(), name='category'),
     path('constructor/', ConstructorView.as_view(), name='constructor'),
     path('filter/', FilterView.as_view(), name='filter'),
+    path('search/', SearchView.as_view(), name='search'),
     path('category/<int:pk>/', CategoryList.as_view(), name='category_list'),
     path('recipe_list/', RecipeList.as_view(), name='recipe_list'),
     path('topic_list/', TopicList.as_view(), name='topic_list'),
