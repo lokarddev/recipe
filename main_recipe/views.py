@@ -1,9 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import ListView
 from .models import *
 from .forms import TopicCommentForm, RecipeCommentForm
+
 
 
 class HomeView(View):
@@ -123,3 +125,12 @@ class SearchView(ListView):
             recipe_title__icontains=query
         )
         return recipe_list
+
+
+class UserProfile(LoginRequiredMixin, View):
+    """Страница профиля пользователя"""
+    login_url = '/login/'
+    permission_denied_message = 'Вам не доступна данная страница'
+    redirect_field_name = 'user_profile'
+    def get(self, request):
+        return render(request, template_name='main_recipe/user_profile.html')

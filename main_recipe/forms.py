@@ -1,5 +1,6 @@
 from .models import *
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
 
 class TopicCommentForm(forms.ModelForm):
@@ -14,3 +15,8 @@ class RecipeCommentForm(forms.ModelForm):
     class Meta:
         model = RecipeReview
         fields = ('name', 'email', 'body')
+
+
+class UserForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        fields = UserCreationForm.Meta.fields + ('email',)

@@ -1,0 +1,10 @@
+{% extends 'main_recipe/base.html' %}
+{% block content %}
+    <h4>Вход в аккаунт</h4>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Войти">
+    </form>
+    <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+{% endblock %}

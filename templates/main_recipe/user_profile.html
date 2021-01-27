@@ -1,0 +1,7 @@
+{% extends 'main_recipe/base.html' %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'password_change' %}">Сменить пароль</a>
+        <a href={% url 'logout' %}>Выйти</a>
+    {% endif %}
+{% endblock %}
