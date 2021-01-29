@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'main_recipe'
+    'main_recipe',
+    'django_summernote'
 ]
 
 MIDDLEWARE = [
@@ -141,17 +142,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+# static directory settings
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+
+# media directory settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# flatpage settings
 SITE_ID = 1
 
+# the page to redirect after successful sign in
 LOGIN_REDIRECT_URL = 'user_profile'
+
+# the page to redirect after successful sign out
 LOGOUT_REDIRECT_URL = 'home'
+
+# email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# clickjacking protection allows to show editor frame correctly
+X_FRAME_OPTIONS = 'SAMEORIGIN'

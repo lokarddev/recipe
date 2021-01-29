@@ -3,7 +3,7 @@
         <h3>{{ topic.topic_title }}</h3>
         <div class="row">
             <div class="col-md-8">
-                <p>{{ topic.topic_text }}</p>
+                {{ topic.topic_text | safe }}
             </div>
             <div class="col-md-4">
                 {% for object in topic.get_queryset_image %}
