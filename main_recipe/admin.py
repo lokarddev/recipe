@@ -3,6 +3,7 @@ from .models import *
 from django_summernote.admin import SummernoteModelAdmin
 
 
+# админ-модель редактора текста и переопределение всех textfield в других моделях
 class SomeModelAdmin(SummernoteModelAdmin):
     summernote_fields = '__all__'
 

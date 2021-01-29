@@ -66,9 +66,11 @@ class Recipe(models.Model):
     ingredient = models.ManyToManyField(Ingredient, verbose_name='рецепт', related_name='ingridient')
 
     def get_main_image(self):
+        """Главное изображение для карточки рецепта"""
         return self.recipeimage_set.all()[0]
 
     def get_queryset_image(self):
+        """Полный набор изображений рецепта"""
         return self.recipeimage_set.all()
 
     def __repr__(self):
@@ -93,9 +95,11 @@ class Topic(models.Model):
     draft = models.BooleanField('Черновик', default=False)
 
     def get_main_image(self):
+        """Главное изображение для карточки статьи"""
         return self.topicimage_set.all()[0]
 
     def get_queryset_image(self):
+        """Полный набор изображений статьи"""
         return self.topicimage_set.all()
 
     def __repr__(self):
@@ -110,6 +114,7 @@ class Topic(models.Model):
 
 
 class TopicImage(models.Model):
+    """Изображения статьи"""
     image = models.ImageField('Изображение', upload_to='topic/', null=True)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
 
@@ -118,6 +123,7 @@ class TopicImage(models.Model):
 
 
 class RecipeImage(models.Model):
+    """Изображения рецепта"""
     image = models.ImageField('Изображение', upload_to='recipe/', null=True)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=True)
 
