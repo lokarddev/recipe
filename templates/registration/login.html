@@ -7,4 +7,6 @@
         <input type="submit" value="Войти">
     </form>
     <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+    <p>Если у вас еще нет учетной записи, пройдите по ссылке ниже</p>
+    <a href="{% url 'register' %}">Регистрация</a>
 {% endblock %}

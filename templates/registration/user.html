@@ -1,0 +1,10 @@
+{% extends 'main_recipe/base.html' %}
+{% block content %}
+    <h4></h4>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Зарегистрироваться">
+    </form>
+    <a href="{% url 'login' %}">Войти</a>
+{% endblock %}

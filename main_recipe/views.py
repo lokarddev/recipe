@@ -1,11 +1,12 @@
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import ListView
 from .models import *
-from .forms import TopicCommentForm, RecipeCommentForm
-
+from .forms import TopicCommentForm, RecipeCommentForm, UserForm, AddRecipeForm
+from django.urls import reverse
 
 
 class HomeView(View):
@@ -91,7 +92,7 @@ class TopicList(View):
 class RecipeList(GetData, ListView):
     """Полный список рецептов на сайте"""
     model = Recipe
-    queryset = Recipe.objects.order_by('-created')
+    queryset = Recipe.objects.order_by('created')
 
 
 class AddTopicReview(View):
@@ -132,5 +133,37 @@ class UserProfile(LoginRequiredMixin, View):
     login_url = '/login/'
     permission_denied_message = 'Вам не доступна данная страница'
     redirect_field_name = 'user_profile'
+
     def get(self, request):
         return render(request, template_name='main_recipe/user_profile.html')
+
+
+class Register(View):
+    """Страница регистрации"""
+    def get(self, request):
+        context ={
+            'form': UserForm
+        }
+        return render(request, template_name='registration/user.html', context=context)
+
+    def post(self, request):
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect(reverse('home'))
+
+
+class AddRecipe(View):
+    """Добавление нового рецепта"""
+    def get(self, request):
+        context = {
+            'form': AddRecipeForm
+        }
+        return render(request, template_name='main_recipe/add_recipe.html', context=context)
+
+    def post(self, request):
+        form = AddRecipeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('user_profile'))

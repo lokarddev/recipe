@@ -20,3 +20,9 @@ class RecipeCommentForm(forms.ModelForm):
 class UserForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         fields = UserCreationForm.Meta.fields + ('email',)
+
+
+class AddRecipeForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ('recipe_title', 'recipe_text', 'category', 'ingredient')

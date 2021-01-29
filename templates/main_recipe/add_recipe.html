@@ -1,0 +1,8 @@
+{% extends 'main_recipe/base.html' %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+    <input type="submit" value="Добавить рецепт">
+    </form>
+{% endblock %}

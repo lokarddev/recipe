@@ -62,7 +62,7 @@ class Recipe(models.Model):
     modified = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     url = models.SlugField(max_length=100, unique=True, null=True)
-    draft = models.BooleanField('Черновик', default=False)
+    draft = models.BooleanField('Черновик', default=True)
     ingredient = models.ManyToManyField(Ingredient, verbose_name='рецепт', related_name='ingridient')
 
     def get_main_image(self):
