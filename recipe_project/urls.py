@@ -23,4 +23,3 @@ urlpatterns = [
     path('account/', include('django.contrib.auth.urls')),
     path('summernote/', include('django_summernote.urls'))
 ]
-

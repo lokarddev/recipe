@@ -22,7 +22,7 @@ class Copyright(models.Model):
 
 class Category(models.Model):
     """Категории доступные  для сортировки"""
-    title = models.CharField('Категория', max_length=100)
+    title = models.CharField('Категория', max_length=100, unique=True)
     description = models.TextField('Описание категории', null=True)
     image = models.ImageField('Изображение', upload_to='category/', null=True)
 
@@ -39,7 +39,7 @@ class Category(models.Model):
 
 class Ingredient(models.Model):
     """Ингридиент используемый в рецептах"""
-    title = models.CharField('название продукта/ингридиента', max_length=50, default='Title')
+    title = models.CharField('Название продукта/ингридиента', max_length=50, default='Title', unique=True)
     description = models.TextField('Описание продукта/ингридиента', default='Description')
     image = models.ImageField('Изображение', upload_to='ingredient/', null=True)
 
@@ -56,14 +56,14 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     """Рецепт блюда"""
-    recipe_title = models.CharField('Название рецепта', max_length=100)
+    recipe_title = models.CharField('Название рецепта', max_length=100, unique=True)
     recipe_text = models.TextField('Описание рецепта')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     url = models.SlugField(max_length=100, unique=True, null=True)
     draft = models.BooleanField('Черновик', default=True)
-    ingredient = models.ManyToManyField(Ingredient, verbose_name='рецепт', related_name='ingridient')
+    ingredient = models.ManyToManyField(Ingredient, verbose_name='ингредиенты', related_name='ingredient')
 
     def get_main_image(self):
         """Главное изображение для карточки рецепта"""
@@ -86,7 +86,7 @@ class Recipe(models.Model):
 
 class Topic(models.Model):
     """Произвольная статья по теме рецептов отображаемая на главной странице"""
-    topic_title = models.CharField('Название статьи', max_length=150)
+    topic_title = models.CharField('Название статьи', max_length=150, unique=True)
     topic_text = models.TextField('Текст статьи')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -140,8 +140,8 @@ class TopicReview(models.Model):
     topic = models.ForeignKey(Topic, verbose_name='статья', related_name='review', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'отзыв'
-        verbose_name_plural = 'отзывы'
+        verbose_name = 'отзыв о статье'
+        verbose_name_plural = 'отзывы о статье'
         ordering = ['created']
 
     def __str__(self):
@@ -160,8 +160,8 @@ class RecipeReview(models.Model):
     recipe = models.ForeignKey(Recipe, verbose_name='рецепт', related_name='review', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'отзыв'
-        verbose_name_plural = 'отзывы'
+        verbose_name = 'отзыв о рецепте'
+        verbose_name_plural = 'отзывы о рецепте'
         ordering = ['created']
 
     def __str__(self):

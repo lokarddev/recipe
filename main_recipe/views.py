@@ -13,8 +13,8 @@ class HomeView(View):
     """Главная страница сайта. Содержит две таблицы с данными рецептов/статей в виде карточек"""
     def get(self, request):
         context = {
-            'topics': Topic.objects.all()[:3],
-            'recipes': Recipe.objects.all()[:3]
+            'topics': Topic.objects.filter(draft=False)[:3],
+            'recipes': Recipe.objects.filter(draft=False)[:3]
         }
         return render(request, template_name='main_recipe/home.html', context=context)
 
@@ -84,7 +84,7 @@ class TopicList(View):
     """Полный список статей на сайте"""
     def get(self, request):
         context = {
-            'topics': Topic.objects.order_by('-created')
+            'topics': Topic.objects.order_by('-created').filter(draft=False)
         }
         return render(request, template_name='main_recipe/topic_list.html', context=context)
 
@@ -92,7 +92,7 @@ class TopicList(View):
 class RecipeList(GetData, ListView):
     """Полный список рецептов на сайте"""
     model = Recipe
-    queryset = Recipe.objects.order_by('created')
+    queryset = Recipe.objects.order_by('created').filter(draft=False)
 
 
 class AddTopicReview(View):
