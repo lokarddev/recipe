@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.admin import TabularInline
 from django.utils.safestring import mark_safe
 from .models import *
 from django_summernote.admin import SummernoteModelAdmin

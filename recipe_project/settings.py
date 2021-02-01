@@ -166,5 +166,5 @@ LOGOUT_REDIRECT_URL = 'home'
 # email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# clickjacking protection allows to show editor frame correctly
+# clickjacking protection allows to show Summernote editor frame correctly
 X_FRAME_OPTIONS = 'SAMEORIGIN'
