@@ -13,21 +13,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'uvop9ac6eiq+00)z(wg=%*xe3_45ks(6%&#sgtcv4dq)dim69a'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -83,16 +71,6 @@ WSGI_APPLICATION = 'recipe_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'recipe',
-        'USER': 'postgres',
-        'PASSWORD': 'lok1415161213',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
 
 CACHES = {
     'default': {
@@ -102,7 +80,7 @@ CACHES = {
 }
 
 CACHE_MIDDLEWARE_ALIAS = 'default'
-CACHE_MIDDLEWARE_SECONDS = 1 # DO NOT FORGET TO CHANGE THIS PARAMETER ON DEPLOY!!!
+CACHE_MIDDLEWARE_SECONDS = 1  # DO NOT FORGET TO CHANGE THIS PARAMETER ON DEPLOY!!!
 CACHE_MIDDLEWARE_KEY_PREFIX = ''
 
 
@@ -144,9 +122,7 @@ USE_TZ = True
 
 # static directory settings
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
+
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
@@ -168,3 +144,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # clickjacking protection allows to show Summernote editor frame correctly
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+
+# to divide different settings files
+try:
+    from .local_settings import *
+except ImportError:
+    from .prod_settings import *
