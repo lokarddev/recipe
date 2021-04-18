@@ -7,7 +7,6 @@ from django.contrib.flatpages import views
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
-    path('register/', Register.as_view(), name='register'),
     path('profile/', UserProfile.as_view(), name='user_profile'),
     path('category/', CategoryView.as_view(), name='category'),
     path('constructor/', ConstructorView.as_view(), name='constructor'),

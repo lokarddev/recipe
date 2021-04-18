@@ -20,6 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main_recipe.urls')),
     path('pages/', include('django.contrib.flatpages.urls')),
-    path('account/', include('django.contrib.auth.urls')),
-    path('summernote/', include('django_summernote.urls'))
+    path('summernote/', include('django_summernote.urls')),
+    path('accounts/', include('allauth.urls')),
 ]

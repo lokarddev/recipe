@@ -138,22 +138,6 @@ class UserProfile(LoginRequiredMixin, View):
         return render(request, template_name='main_recipe/user_profile.html')
 
 
-class Register(View):
-    """Страница регистрации"""
-    def get(self, request):
-        context ={
-            'form': UserForm
-        }
-        return render(request, template_name='registration/user.html', context=context)
-
-    def post(self, request):
-        form = UserForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect(reverse('home'))
-
-
 class AddRecipe(View):
     """Добавление нового рецепта"""
     def get(self, request):
