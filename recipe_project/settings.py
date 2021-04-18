@@ -146,16 +146,16 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # flatpage settings
-SITE_ID = 1
+SITE_ID = 2
 
-# the page to redirect after successful sign in
-LOGIN_REDIRECT_URL = 'profile/'
-
-# the page to redirect after successful sign out
-LOGOUT_REDIRECT_URL = 'home/'
+# auth settings
+LOGIN_REDIRECT_URL = 'user_profile'
+LOGOUT_REDIRECT_URL = 'home'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 # clickjacking protection allows to show Summernote editor frame correctly
 X_FRAME_OPTIONS = 'SAMEORIGIN'
