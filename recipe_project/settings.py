@@ -37,6 +37,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'main_recipe.middleware.StackOverflow',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
@@ -83,6 +84,9 @@ CACHES = {
 
 # this parameter is just for testing, in prod environment you should better use per_view cache
 CACHE_MIDDLEWARE_SECONDS = 1
+
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 
 # Password validation
