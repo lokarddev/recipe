@@ -63,7 +63,7 @@ class Migration(migrations.Migration):
                 ('modified', models.DateTimeField(auto_now=True)),
                 ('url', models.SlugField(max_length=100, null=True, unique=True)),
                 ('draft', models.BooleanField(default=False, verbose_name='Черновик')),
-                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='main_recipe.category')),
+                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='recipe_app.category')),
             ],
             options={
                 'verbose_name': 'Рецепт',
@@ -80,7 +80,7 @@ class Migration(migrations.Migration):
                 ('modified', models.DateTimeField(auto_now=True)),
                 ('url', models.SlugField(max_length=100, null=True, unique=True)),
                 ('draft', models.BooleanField(default=False, verbose_name='Черновик')),
-                ('recipe', models.ManyToManyField(blank=True, to='main_recipe.Recipe', verbose_name='рецепт')),
+                ('recipe', models.ManyToManyField(blank=True, to='recipe_app.Recipe', verbose_name='рецепт')),
             ],
             options={
                 'verbose_name': 'Статья',
@@ -92,7 +92,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('image', models.ImageField(null=True, upload_to='topic/', verbose_name='Изображение')),
-                ('topic', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='main_recipe.topic')),
+                ('topic', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='recipe_app.topic')),
             ],
         ),
         migrations.CreateModel(
@@ -100,7 +100,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('image', models.ImageField(null=True, upload_to='recipe/', verbose_name='Изображение')),
-                ('topic', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='main_recipe.recipe')),
+                ('topic', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='recipe_app.recipe')),
             ],
         ),
     ]

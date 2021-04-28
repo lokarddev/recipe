@@ -1,4 +1,4 @@
-"""recipe_project URL Configuration
+"""recipe_config URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -18,7 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main_recipe.urls')),
+    path('', include('recipe_app.urls')),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('summernote/', include('django_summernote.urls')),
     path('account/', include('allauth.urls')),

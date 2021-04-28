@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main_recipe', '0003_recipe_ingredient'),
+        ('recipe_app', '0003_recipe_ingredient'),
     ]
 
     operations = [
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(max_length=60, verbose_name='Почта')),
                 ('body', models.TextField(max_length=5000, verbose_name='Тело отзыва')),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('topic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='review', to='main_recipe.topic', verbose_name='статья')),
+                ('topic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='review', to='recipe_app.topic', verbose_name='статья')),
             ],
             options={
                 'verbose_name': 'отзыв',
@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(max_length=60, verbose_name='Почта')),
                 ('body', models.TextField(max_length=5000, verbose_name='Тело отзыва')),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('recipe', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='review', to='main_recipe.recipe', verbose_name='рецепт')),
+                ('recipe', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='review', to='recipe_app.recipe', verbose_name='рецепт')),
             ],
             options={
                 'verbose_name': 'отзыв',
