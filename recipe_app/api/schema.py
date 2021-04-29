@@ -1,8 +1,22 @@
 import graphene
 from graphene_django.filter import DjangoFilterConnectionField
-from .types import *
 from graphene import relay
-from .mutations import *
+from .types import (CategoryType,
+                    IngredientType,
+                    RecipeType,
+                    RecipeReviewType,
+                    RecipeImageType,
+                    TopicType,
+                    TopicReviewType,
+                    TopicImageType)
+from .mutations import (category_mutation,
+                        ingredient_mutation,
+                        recipe_mutation,
+                        recipe_review_mutation,
+                        recipe_image_mutation,
+                        topic_image_mutation,
+                        topic_mutation,
+                        topic_review_mutation)
 
 
 class Query(graphene.ObjectType):
@@ -31,8 +45,36 @@ class Query(graphene.ObjectType):
     topic_image = relay.Node.Field(TopicImageType)
     topic_images = DjangoFilterConnectionField(TopicImageType)
 
-# class Mutation(graphene.ObjectType):
-#     pass
+
+class Mutation(graphene.ObjectType):
+
+    create_category = category_mutation.CreateCategory.Field()
+    update_category = category_mutation.UpdateCategory.Field()
+    delete_category = category_mutation.DeleteCategory.Field()
+
+    create_ingredient = ingredient_mutation.CreateIngredient.Field()
+    update_ingredient = ingredient_mutation.UpdateIngredient.Field()
+    delete_ingredient = ingredient_mutation.DeleteIngredient.Field()
+
+    create_recipe = recipe_mutation.CreateRecipe.Field()
+    update_recipe = recipe_mutation.UpdateRecipe.Field()
+    delete_recipe = recipe_mutation.DeleteRecipe.Field()
+
+    create_recipe_review = recipe_review_mutation.CreateRecipeReview.Field()
+    delete_recipe_review = recipe_review_mutation.DeleteRecipeReview.Field()
+
+    create_recipe_image = recipe_image_mutation.CreateRecipeImage.Field()
+    delete_recipe_image = recipe_image_mutation.DeleteRecipeImage.Field()
+
+    create_topic = topic_mutation.CreateTopic.Field()
+    update_topic = topic_mutation.UpdateTopic.Field()
+    delete_topic = topic_mutation.DeleteTopic.Field()
+
+    create_topic_review = topic_review_mutation.CreateTopicReview.Field()
+    delete_topic_review = topic_review_mutation.DeleteTopicReview.Field()
+
+    create_topic_image = topic_image_mutation.CreateTopicImage.Field()
+    delete_topic_image = topic_image_mutation.DeleteTopicImage.Field()
 
 
-schema = graphene.Schema(query=Query)
+schema = graphene.Schema(query=Query, mutation=Mutation)
