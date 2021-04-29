@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'graphene_django',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

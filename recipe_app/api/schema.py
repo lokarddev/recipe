@@ -1,29 +1,35 @@
 import graphene
+from graphene_django.filter import DjangoFilterConnectionField
 from .types import *
-from mutations import *
-from ..models import (Category,
-                      Ingredient,
-                      Recipe,
-                      RecipeReview,
-                      RecipeImage,
-                      Topic,
-                      TopicReview,
-                      TopicImage,
-                      Copyright)
+from graphene import relay
+from .mutations import *
 
 
 class Query(graphene.ObjectType):
-    category = graphene.Field(CategoryType, category_id=graphene.Int())
-    categories = graphene.List(CategoryType)
 
-    def resolve_category(self, info, **kwargs):
-        category_id = kwargs.get('category_id')
-        if category_id is not None:
-            return Category.objects.get(title=category_id)
-        return None
+    category = relay.Node.Field(CategoryType)
+    categories = DjangoFilterConnectionField(CategoryType)
 
-    def resolve_categories(self, info, **kwargs):
-        return Category.objects.all()
+    ingredient = relay.Node.Field(IngredientType)
+    ingredients = DjangoFilterConnectionField(IngredientType)
+
+    recipe = relay.Node.Field(RecipeType)
+    recipes = DjangoFilterConnectionField(RecipeType)
+
+    recipe_review = relay.Node.Field(RecipeReviewType)
+    recipe_reviews = DjangoFilterConnectionField(RecipeReviewType)
+
+    recipe_image = relay.Node.Field(RecipeImageType)
+    recipe_images = DjangoFilterConnectionField(RecipeImageType)
+
+    topic = relay.Node.Field(TopicType)
+    topics = DjangoFilterConnectionField(TopicType)
+
+    topic_review = relay.Node.Field(TopicReviewType)
+    topic_reviews = DjangoFilterConnectionField(TopicReviewType)
+
+    topic_image = relay.Node.Field(TopicImageType)
+    topic_images = DjangoFilterConnectionField(TopicImageType)
 
 # class Mutation(graphene.ObjectType):
 #     pass

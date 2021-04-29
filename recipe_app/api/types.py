@@ -1,5 +1,5 @@
-import graphene
 from graphene_django.types import DjangoObjectType
+from graphene import relay
 from ..models import (Category,
                       Ingredient,
                       Recipe,
@@ -22,53 +22,61 @@ class CategoryType(DjangoObjectType):
 
     class Meta:
         model = Category
-        fields = '__all__'
+        filter_fields = ['id', 'title']
+        interfaces = (relay.Node, )
 
 
 class IngredientType(DjangoObjectType):
 
     class Meta:
         model = Ingredient
-        fields = '__all__'
+        filter_fields = ['id', 'title']
+        interfaces = (relay.Node, )
 
 
 class RecipeType(DjangoObjectType):
 
     class Meta:
         model = Recipe
-        fields = '__all__'
+        filter_fields = ['id', 'recipe_title', 'category', 'url', 'draft', 'ingredient', 'created']
+        interfaces = (relay.Node, )
 
 
 class RecipeReviewType(DjangoObjectType):
 
     class Meta:
         model = RecipeReview
-        fields = '__all__'
+        filter_fields = ['id', 'name', 'email', 'recipe', 'created']
+        interfaces = (relay.Node, )
 
 
 class RecipeImageType(DjangoObjectType):
 
     class Meta:
         model = RecipeImage
-        fields = '__all__'
+        filter_fields = ['id', 'title']
+        interfaces = (relay.Node, )
 
 
 class TopicType(DjangoObjectType):
 
     class Meta:
         model = Topic
-        fields = '__all__'
+        filter_fields = ['id', 'topic_title', 'created', 'recipe', 'url', 'draft']
+        interfaces = (relay.Node, )
 
 
 class TopicReviewType(DjangoObjectType):
 
     class Meta:
         model = TopicReview
-        fields = '__all__'
+        filter_fields = ['id', 'name', 'email', 'topic', 'created']
+        interfaces = (relay.Node, )
 
 
 class TopicImageType(DjangoObjectType):
 
     class Meta:
         model = TopicImage
-        fields = '__all__'
+        filter_fields = ['id', 'title']
+        interfaces = (relay.Node, )
