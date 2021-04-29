@@ -1,0 +1,8 @@
+{% extends 'main_recipe/base.html' %}
+{% block content %}
+    {% for recipe in query %}
+        <div>
+            <a href={% url 'recipe_detail' recipe.id %}>{{ recipe.recipe_title }}</a>
+        </div>
+    {% endfor %}
+{% endblock %}

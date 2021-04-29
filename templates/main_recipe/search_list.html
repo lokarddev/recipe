@@ -4,7 +4,7 @@
     <div class="row mt-3 justify-content-center">
         {% for recipe in recipe_list %}
                     <div class="card mx-2 mb-2 text-center shadow" style="max-width: 30%">
-                            <img class="card-img-top mt-3" src='{{ recipe.get_main_image.image.url }}' alt="{{ recipe.recipe_title }}" style="height: 300px; width: available">
+                            <img class="card-img-top mt-3" src='' alt="{{ recipe.recipe_title }}" style="height: 300px; width: available">
                             <div class="card-body">
                                 <h5 class="card-title">{{ recipe.recipe_title }}</h5>
                                 <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-primary" style="font-size: 14px">Смотреть рецепт</a>

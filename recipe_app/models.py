@@ -64,14 +64,7 @@ class Recipe(models.Model):
     url = models.SlugField(max_length=100, unique=True, null=True)
     draft = models.BooleanField('Черновик', default=True)
     ingredient = models.ManyToManyField(Ingredient, verbose_name='ингредиенты', related_name='ingredient')
-
-    def get_main_image(self):
-        """Главное изображение для карточки рецепта"""
-        return self.recipeimage_set.all()[0]
-
-    def get_queryset_image(self):
-        """Полный набор изображений рецепта"""
-        return self.recipeimage_set.all()
+    image = models.ManyToManyField('RecipeImage', verbose_name='images', related_name='recipe_image')
 
     def __repr__(self):
         return self.recipe_title
@@ -93,14 +86,7 @@ class Topic(models.Model):
     recipe = models.ManyToManyField(Recipe, verbose_name='рецепт', blank=True)
     url = models.SlugField(max_length=100, unique=True, null=True)
     draft = models.BooleanField('Черновик', default=False)
-
-    def get_main_image(self):
-        """Главное изображение для карточки статьи"""
-        return self.topicimage_set.all()[0]
-
-    def get_queryset_image(self):
-        """Полный набор изображений статьи"""
-        return self.topicimage_set.all()
+    image = models.ManyToManyField('TopicImage', verbose_name='images', related_name='topic_image')
 
     def __repr__(self):
         return self.topic_title
@@ -115,20 +101,20 @@ class Topic(models.Model):
 
 class TopicImage(models.Model):
     """Изображения статьи"""
+    title = models.CharField('Image title', max_length=50, default='title')
     image = models.ImageField('Изображение', upload_to='topic/', null=True)
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return f'{self.topic.topic_title}' + ' ' + f'{self.id}'
+        return f'{self.title}'
 
 
 class RecipeImage(models.Model):
     """Изображения рецепта"""
+    title = models.CharField('Image title', max_length=50, default='title')
     image = models.ImageField('Изображение', upload_to='recipe/', null=True)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return f'{self.recipe.recipe_title}' + ' ' + f'{self.id}'
+        return f'{self.title}'
 
 
 class TopicReview(models.Model):

@@ -1,6 +1,4 @@
-from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import ListView
@@ -41,7 +39,7 @@ class ConstructorView(GetData, ListView):
     queryset = Recipe.objects.filter(draft=False)
 
 
-class FilterView(GetData, ListView):
+class FilterView(View):
     """Фильтр который отображается на странице Constructor.html
         Показвыает выборку на основе отмеченных ингредиентов."""
     def get_queryset(self):
@@ -50,13 +48,20 @@ class FilterView(GetData, ListView):
         ).distinct()
         return queryset
 
+    def get(self, request, *args, **kwargs):
+        context = {
+            'query': self.get_queryset()
+        }
+        print(context)
+        return render(request, 'main_recipe/filter_result.html', context=context)
+
 
 class TopicDetail(View):
     """Детальное описание выбранной статьи"""
     def get(self, request, pk):
         topic = get_object_or_404(Topic, id=pk)
         context = {
-            'topic': Topic.objects.get(id=pk),
+            'topic': topic,
             'comments': topic.review.all()
         }
         return render(request, template_name='main_recipe/topic_detail.html', context=context)
@@ -93,6 +98,7 @@ class RecipeList(GetData, ListView):
     """Полный список рецептов на сайте"""
     model = Recipe
     queryset = Recipe.objects.order_by('created').filter(draft=False)
+    template_name = 'main_recipe/recipe_list.html'
 
 
 class AddTopicReview(View):
@@ -104,7 +110,6 @@ class AddTopicReview(View):
             'topic': topic,
             'comments': topic.review.all(),
             'comment': comment
-
         }
         form = TopicCommentForm(request.POST)
         if form.is_valid():

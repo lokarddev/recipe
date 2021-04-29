@@ -2,3 +2,4 @@
 /media/*
 prod_settings.py
 /.idea/
+/recipe_config/.env

@@ -100,15 +100,13 @@ class CategoryAdmin(SummernoteModelAdmin, GetImage):
 @admin.register(RecipeImage)
 class RecipeImageAdmin(admin.ModelAdmin, GetImage):
     """Изображение рецепта"""
-    list_display = ('recipe', 'get_image')
-    list_display_links = ('recipe',)
+    list_display = ('title', 'image')
 
 
 @admin.register(TopicImage)
 class TopicImageAdmin(admin.ModelAdmin, GetImage):
     """Изображение статьи"""
-    list_display = ('topic', 'get_image')
-    list_display_links = ('topic',)
+    list_display = ('title', 'image')
 
 
 @admin.register(TopicReview)
