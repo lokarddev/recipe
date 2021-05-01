@@ -7,24 +7,24 @@
                     <div class="text-white col-md-5">
                         <ul class="navbar-nav mr-auto text-white">
                             <li class="nav-item">
-                                <a class="nav-link" href={% url 'home' %}>Главная</a>
+                                <a class="nav-link" href={% url 'home' %}>Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href={% url 'category' %}>Категории</a>
+                                <a class="nav-link" href={% url 'category' %}>Categories</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href={% url 'constructor' %}>Конструктор</a>
+                                <a class="nav-link" href={% url 'constructor' %}>Constructor</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href={% url 'about' %}>О нас</a>
+                                <a class="nav-link" href={% url 'about' %}>About</a>
                             </li>
                             {% if user.is_authenticated %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href={% url 'user_profile' %}>Профиль</a>
+                                    <a class="nav-link" href={% url 'user_profile' %}>Profile</a>
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href={% url 'account_login' %}>Войти</a>
+                                    <a class="nav-link" href={% url 'account_login' %}>Sign in</a>
                                 </li>
                             {% endif %}
                         </ul>
@@ -33,7 +33,7 @@
                 <div class="mb-2 pb-2">
                     <form action="{% url 'search' %}" method="get">
                         <label>
-                            <input name="search" type="text" placeholder="Поиск...">
+                            <input name="search" type="text" placeholder="Search...">
                         </label>
                     </form>
                 </div>

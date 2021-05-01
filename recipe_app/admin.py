@@ -97,18 +97,6 @@ class CategoryAdmin(SummernoteModelAdmin, GetImage):
     summernote_fields = '__all__'
 
 
-@admin.register(RecipeImage)
-class RecipeImageAdmin(admin.ModelAdmin, GetImage):
-    """Изображение рецепта"""
-    list_display = ('title', 'image')
-
-
-@admin.register(TopicImage)
-class TopicImageAdmin(admin.ModelAdmin, GetImage):
-    """Изображение статьи"""
-    list_display = ('title', 'image')
-
-
 @admin.register(TopicReview)
 class TopicReviewAdmin(admin.ModelAdmin):
     """Отзыв о статье"""

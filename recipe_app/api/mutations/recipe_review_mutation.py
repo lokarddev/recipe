@@ -1,27 +1,21 @@
-from ..inputs import RecipeReviewInput
-from ..types import RecipeReviewType
+from recipe_app.api.inputs import RecipeReviewInput
+from recipe_app.api.types import RecipeReviewType
 from recipe_app.models import RecipeReview, Recipe
+from recipe_app.api.data import recipe_review_create
 import graphene
 
 
 class CreateRecipeReview(graphene.Mutation):
 
     class Arguments:
-        recipe_review_data = RecipeReviewInput()
+        data = RecipeReviewInput()
 
     recipe_review = graphene.Field(RecipeReviewType)
 
     @classmethod
-    def mutate(cls, root, info, recipe_review_data=None):
-        recipe = Recipe.objects.get(recipe_title=recipe_review_data.recipe)
-        recipe_review_instance = RecipeReview(
-            name=recipe_review_data.name,
-            email=recipe_review_data.email,
-            body=recipe_review_data.body,
-            recipe=recipe
-        )
-        recipe_review_instance.save()
-        return CreateRecipeReview(recipe_review=recipe_review_instance)
+    def mutate(cls, root, info, data=None):
+        recipe_review = recipe_review_create(data)
+        return CreateRecipeReview(recipe_review=recipe_review)
 
 
 class DeleteRecipeReview(graphene.Mutation):

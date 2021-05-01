@@ -1,44 +1,34 @@
-from ..inputs import IngredientInput
-from ..types import IngredientType
+from recipe_app.api.inputs import IngredientInput
+from recipe_app.api.types import IngredientType
 from recipe_app.models import Ingredient
+from recipe_app.api.data import ingredient_create, ingredient_update
 import graphene
 
 
 class CreateIngredient(graphene.Mutation):
 
     class Arguments:
-        ingredient_data = IngredientInput()
+        data = IngredientInput()
 
     ingredient = graphene.Field(IngredientType)
 
     @classmethod
-    def mutate(cls, root, info, ingredient_data=None):
-        ingredient_instance = Ingredient(
-            description=ingredient_data.description,
-            image=ingredient_data.image
-        )
-        ingredient_instance.save()
-        return CreateIngredient(ingredient=ingredient_instance)
+    def mutate(cls, root, info, data=None):
+        ingredient = ingredient_create(data)
+        return CreateIngredient(ingredient=ingredient)
 
 
 class UpdateIngredient(graphene.Mutation):
 
     class Arguments:
-        ingredient_data = IngredientInput()
+        data = IngredientInput()
 
     ingredient = graphene.Field(IngredientType)
 
     @classmethod
-    def mutate(cls, root, info, ingredient_data=None):
-        ingredient_instance = Ingredient.objects.get(pk=ingredient_data.id)
-
-        if ingredient_instance:
-            ingredient_instance.description = ingredient_data.description
-            ingredient_instance.image = ingredient_data.image
-            ingredient_instance.save()
-
-            return UpdateIngredient(ingredient=ingredient_instance)
-        return UpdateIngredient(ingredient=None)
+    def mutate(cls, root, info, data=None):
+        ingredient = ingredient_update(data)
+        return ingredient
 
 
 class DeleteIngredient(graphene.Mutation):

@@ -1,50 +1,34 @@
-from ..inputs import TopicInput
-from ..types import TopicType
+from recipe_app.api.inputs import TopicInput
+from recipe_app.api.types import TopicType
 from recipe_app.models import Topic
+from recipe_app.api.data import topic_create, topic_update
 import graphene
 
 
 class CreateTopic(graphene.Mutation):
 
     class Arguments:
-        recipe_data = TopicInput()
+        data = TopicInput()
 
     topic = graphene.Field(TopicType)
 
     @classmethod
-    def mutate(cls, root, info, topic_data=None):
-        topic_instance = Topic(
-            topic_title=topic_data.topic_title,
-            topic_text=topic_data.topic_text,
-            recipe=topic_data.recipe,
-            url=topic_data.url,
-            draft=topic_data.draft
-        )
-        topic_instance.save()
-        return CreateTopic(topic=topic_instance)
+    def mutate(cls, root, info, data=None):
+        topic = topic_create(data)
+        return CreateTopic(topic=topic)
 
 
 class UpdateTopic(graphene.Mutation):
 
     class Arguments:
-        topic_data = TopicInput()
+        data = TopicInput()
 
     topic = graphene.Field(TopicType)
 
     @classmethod
-    def mutate(cls, root, info, topic_data=None):
-        topic_instance = Topic.objects.get(pk=topic_data.id)
-
-        if topic_instance:
-            topic_instance.topic_title = topic_data.topic_title,
-            topic_instance.topic_text = topic_data.topic_text,
-            topic_instance.recipe = topic_data.recipe,
-            topic_instance.url = topic_data.url,
-            topic_instance.draft = topic_data.draft
-            topic_instance.save()
-
-            return UpdateTopic(topic=topic_instance)
-        return UpdateTopic(topic=None)
+    def mutate(cls, root, info, data=None):
+        topic = topic_update(data)
+        return UpdateTopic(topic=topic)
 
 
 class DeleteTopic(graphene.Mutation):

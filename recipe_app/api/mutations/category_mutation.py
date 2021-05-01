@@ -1,46 +1,34 @@
-from ..inputs import CategoryInput
-from ..types import CategoryType
+from recipe_app.api.inputs import CategoryInput
+from recipe_app.api.types import CategoryType
 from recipe_app.models import Category
+from recipe_app.api.data import category_create, category_update
 import graphene
 
 
 class CreateCategory(graphene.Mutation):
 
     class Arguments:
-        category_data = CategoryInput()
+        data = CategoryInput()
 
     category = graphene.Field(CategoryType)
 
     @classmethod
-    def mutate(cls, root, info, category_data=None):
-        category_instance = Category(
-            title=category_data.title,
-            description=category_data.description,
-            image=category_data.image
-        )
-        category_instance.save()
-        return CreateCategory(category=category_instance)
+    def mutate(cls, root, info, data=None):
+        category = category_create(data)
+        return CreateCategory(category=category)
 
 
 class UpdateCategory(graphene.Mutation):
 
     class Arguments:
-        category_data = CategoryInput()
+        data = CategoryInput()
 
     category = graphene.Field(CategoryType)
 
     @classmethod
-    def mutate(cls, root, info, category_data=None):
-        category_instance = Category.objects.get(pk=category_data.id)
-
-        if category_instance:
-            category_instance.title = category_data.title
-            category_instance.description = category_data.description
-            category_instance.image = category_data.image
-            category_instance.save()
-
-            return UpdateCategory(category=category_instance)
-        return UpdateCategory(category=None)
+    def mutate(cls, root, info, data=None):
+        category = category_update(data)
+        return UpdateCategory(category=category)
 
 
 class DeleteCategory(graphene.Mutation):
