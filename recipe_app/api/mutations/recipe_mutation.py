@@ -1,56 +1,38 @@
-from ..inputs import RecipeInput
-from ..types import RecipeType
-from recipe_app.models import Recipe
+from recipe_app.api.inputs import RecipeInput
+from recipe_app.api.types import RecipeType
+from recipe_app.models import Recipe, Category
 import graphene
+from recipe_app.api.data import recipe_create, recipe_update
 
 
 class CreateRecipe(graphene.Mutation):
-
-    class Arguments:
-        recipe_data = RecipeInput()
-
     recipe = graphene.Field(RecipeType)
 
+    class Arguments:
+        data = RecipeInput()
+
     @classmethod
-    def mutate(cls, root, info, recipe_data=None):
-        recipe_instance = Recipe(
-            recipe_title=recipe_data.recipe_title,
-            recipe_text=recipe_data.recipe_text,
-            category=recipe_data.category,
-            url=recipe_data.url,
-            draft=recipe_data.draft,
-            image=recipe_data.image
-        )
-        recipe_instance.save()
-        return CreateRecipe(recipe=recipe_instance)
+    def mutate(cls, root, info, data=None):
+        recipe = recipe_create(data)
+        return CreateRecipe(recipe=recipe)
 
 
 class UpdateRecipe(graphene.Mutation):
 
-    class Arguments:
-        recipe_data = RecipeInput()
-
     recipe = graphene.Field(RecipeType)
 
+    class Arguments:
+        data = RecipeInput()
+
     @classmethod
-    def mutate(cls, root, info, recipe_data=None):
-        recipe_instance = Recipe.objects.get(pk=recipe_data.id)
+    def mutate(cls, root, info, data=None):
 
-        if recipe_instance:
-            recipe_instance.recipe_title = recipe_data.recipe_title,
-            recipe_instance.recipe_text = recipe_data.recipe_text,
-            recipe_instance.category = recipe_data.category,
-            recipe_instance.url = recipe_data.url,
-            recipe_instance.draft = recipe_data.draft,
-            recipe_instance.image = recipe_data.image
-            recipe_instance.save()
+        recipe = recipe_update(data)
 
-            return UpdateRecipe(recipe=recipe_instance)
-        return UpdateRecipe(recipe=None)
+        return UpdateRecipe(recipe=recipe)
 
 
 class DeleteRecipe(graphene.Mutation):
-
     class Arguments:
         id = graphene.ID()
 

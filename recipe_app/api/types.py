@@ -4,10 +4,8 @@ from ..models import (Category,
                       Ingredient,
                       Recipe,
                       RecipeReview,
-                      RecipeImage,
                       Topic,
                       TopicReview,
-                      TopicImage,
                       Copyright)
 
 
@@ -50,14 +48,6 @@ class RecipeReviewType(DjangoObjectType):
         interfaces = (relay.Node, )
 
 
-class RecipeImageType(DjangoObjectType):
-
-    class Meta:
-        model = RecipeImage
-        filter_fields = ['id', 'title']
-        interfaces = (relay.Node, )
-
-
 class TopicType(DjangoObjectType):
 
     class Meta:
@@ -71,12 +61,4 @@ class TopicReviewType(DjangoObjectType):
     class Meta:
         model = TopicReview
         filter_fields = ['id', 'name', 'email', 'topic', 'created']
-        interfaces = (relay.Node, )
-
-
-class TopicImageType(DjangoObjectType):
-
-    class Meta:
-        model = TopicImage
-        filter_fields = ['id', 'title']
         interfaces = (relay.Node, )

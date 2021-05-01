@@ -62,9 +62,9 @@ class Recipe(models.Model):
     modified = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     url = models.SlugField(max_length=100, unique=True, null=True)
-    draft = models.BooleanField('Черновик', default=True)
+    draft = models.BooleanField('Черновик', default=True, null=True)
     ingredient = models.ManyToManyField(Ingredient, verbose_name='ингредиенты', related_name='ingredient')
-    image = models.ManyToManyField('RecipeImage', verbose_name='images', related_name='recipe_image')
+    image = models.ImageField('Изображение', upload_to='recipe/', null=True, blank=True)
 
     def __repr__(self):
         return self.recipe_title
@@ -85,8 +85,8 @@ class Topic(models.Model):
     modified = models.DateTimeField(auto_now=True)
     recipe = models.ManyToManyField(Recipe, verbose_name='рецепт', blank=True)
     url = models.SlugField(max_length=100, unique=True, null=True)
-    draft = models.BooleanField('Черновик', default=False)
-    image = models.ManyToManyField('TopicImage', verbose_name='images', related_name='topic_image')
+    draft = models.BooleanField('Черновик', default=False, null=True)
+    image = models.ImageField('Изображение', upload_to='topic/', null=True, blank=True)
 
     def __repr__(self):
         return self.topic_title
@@ -97,24 +97,6 @@ class Topic(models.Model):
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
-
-
-class TopicImage(models.Model):
-    """Изображения статьи"""
-    title = models.CharField('Image title', max_length=50, default='title')
-    image = models.ImageField('Изображение', upload_to='topic/', null=True)
-
-    def __str__(self):
-        return f'{self.title}'
-
-
-class RecipeImage(models.Model):
-    """Изображения рецепта"""
-    title = models.CharField('Image title', max_length=50, default='title')
-    image = models.ImageField('Изображение', upload_to='recipe/', null=True)
-
-    def __str__(self):
-        return f'{self.title}'
 
 
 class TopicReview(models.Model):

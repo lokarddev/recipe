@@ -28,4 +28,4 @@ class AddRecipeForm(forms.ModelForm):
     """Форма добавления собственного рецепта пользователем"""
     class Meta:
         model = Recipe
-        fields = ('recipe_title', 'recipe_text', 'category', 'ingredient')
+        fields = ('recipe_title', 'recipe_text', 'category', 'ingredient', 'image')
