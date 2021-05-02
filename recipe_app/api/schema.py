@@ -1,4 +1,5 @@
 import graphene
+import graphql_jwt
 from graphene_django.filter import DjangoFilterConnectionField
 from graphene import relay
 from .types import (CategoryType,
@@ -59,6 +60,10 @@ class Mutation(graphene.ObjectType):
 
     create_topic_review = topic_review_mutation.CreateTopicReview.Field()
     delete_topic_review = topic_review_mutation.DeleteTopicReview.Field()
+
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

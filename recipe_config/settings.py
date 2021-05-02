@@ -69,8 +69,17 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 # graphql root schema path
 GRAPHENE = {
-    "SCHEMA": "recipe_app.api.schema.schema"
+    'SCHEMA': 'recipe_app.api.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
 }
+
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 
 AUTH_PASSWORD_VALIDATORS = [

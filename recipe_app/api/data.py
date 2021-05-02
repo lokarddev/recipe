@@ -47,7 +47,6 @@ def topic_create(data):
     )
     topic.save()
     topic.recipe.set(topic_recipe)
-    topic.save()
     return topic
 
 
