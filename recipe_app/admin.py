@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from .models import *
 from django_summernote.admin import SummernoteModelAdmin
+from django.contrib.auth.admin import UserAdmin
 
 
 class GetImage:
@@ -120,3 +121,4 @@ admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Copyright, CopyrightAdmin)
+admin.site.register(CustomUser, UserAdmin)

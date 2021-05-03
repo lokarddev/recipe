@@ -1,7 +1,6 @@
 from pathlib import Path
 import os
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,6 +23,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'graphene_django',
     'django_filters',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
+    'graphql_auth',
 ]
 
 MIDDLEWARE = [
@@ -60,10 +61,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'recipe_config.wsgi.application'
 
-
 # this parameter is just for testing, in prod environment you should better use per_view cache
 CACHE_MIDDLEWARE_SECONDS = 1
-
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
@@ -75,12 +74,29 @@ GRAPHENE = {
     ],
 }
 
+GRAPHQL_JWT = {
+    "JWT_VERIFY_EXPIRATION": True,
+    "JWT_ALLOW_ANY_CLASSES": [
+        "graphql_auth.mutations.Register",
+        "graphql_auth.mutations.VerifyAccount",
+        "graphql_auth.mutations.PasswordReset",
+        "graphql_auth.mutations.ObtainJSONWebToken",
+        "graphql_auth.mutations.VerifyToken",
+        "graphql_auth.mutations.RefreshToken",
+        "graphql_auth.mutations.RevokeToken",
+    ]
+    # optional
+    # "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+}
 
 AUTHENTICATION_BACKENDS = [
-    'graphql_jwt.backends.JSONWebTokenBackend',
+    # 'graphql_jwt.backends.JSONWebTokenBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'graphql_auth.backends.GraphQLAuthBackend',
+
 ]
 
+AUTH_USER_MODEL = 'recipe_app.CustomUser'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -96,7 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # SOCIALACCOUNT_PROVIDERS = {
 #     'google': {
@@ -123,7 +138,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # static directory settings
 STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -133,27 +147,21 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
 # flatpage settings
 SITE_ID = 3
-
 
 # auth settings
 LOGIN_REDIRECT_URL = 'user_profile'
 LOGOUT_REDIRECT_URL = 'home'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-
 # email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 
 # clickjacking protection allows to show Summernote editor frame correctly
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 # to divide different settings files
 try:

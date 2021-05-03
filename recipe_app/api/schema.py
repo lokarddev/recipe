@@ -2,6 +2,7 @@ import graphene
 import graphql_jwt
 from graphene_django.filter import DjangoFilterConnectionField
 from graphene import relay
+from graphql_auth.schema import UserQuery, MeQuery
 from .types import (CategoryType,
                     IngredientType,
                     RecipeType,
@@ -13,10 +14,11 @@ from .mutations import (category_mutation,
                         recipe_mutation,
                         recipe_review_mutation,
                         topic_mutation,
-                        topic_review_mutation)
+                        topic_review_mutation,
+                        user_mutations)
 
 
-class Query(graphene.ObjectType):
+class Query(UserQuery, MeQuery, graphene.ObjectType):
 
     category = relay.Node.Field(CategoryType)
     categories = DjangoFilterConnectionField(CategoryType)
@@ -37,7 +39,7 @@ class Query(graphene.ObjectType):
     topic_reviews = DjangoFilterConnectionField(TopicReviewType)
 
 
-class Mutation(graphene.ObjectType):
+class Mutation(user_mutations.AuthMutation, graphene.ObjectType):
 
     create_category = category_mutation.CreateCategory.Field()
     update_category = category_mutation.UpdateCategory.Field()
@@ -60,10 +62,5 @@ class Mutation(graphene.ObjectType):
 
     create_topic_review = topic_review_mutation.CreateTopicReview.Field()
     delete_topic_review = topic_review_mutation.DeleteTopicReview.Field()
-
-    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
-    verify_token = graphql_jwt.Verify.Field()
-    refresh_token = graphql_jwt.Refresh.Field()
-
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
