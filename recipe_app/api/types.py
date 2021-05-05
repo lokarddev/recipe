@@ -1,3 +1,4 @@
+import graphene
 from graphene_django.types import DjangoObjectType
 from graphene import relay
 from ..models import (Category,
@@ -7,6 +8,7 @@ from ..models import (Category,
                       Topic,
                       TopicReview,
                       Copyright)
+from recipe_app.api.redis_logic import Click
 
 
 class CopyrightType(DjangoObjectType):
@@ -62,3 +64,10 @@ class TopicReviewType(DjangoObjectType):
         model = TopicReview
         filter_fields = ['id', 'name', 'email', 'topic', 'created']
         interfaces = (relay.Node, )
+
+
+class ClickStatType(graphene.Scalar):
+
+    @classmethod
+    def serialize(cls, *args, **kwargs):
+        return Click.get_click()

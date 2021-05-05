@@ -5,4 +5,7 @@
             <img src="{{ object.image.url }}" alt="{{ recipe.recipe_title }}" class="mb-5 mt-5 shadow" style="height: 250px; width: 250px">
         {% endfor %}
         <p>{{ recipe.recipe_text|safe }}</p>
+        <form action="{% url 'recipe_list' %}" method="get">
+            <button>Click me</button>
+        </form>
     {% endblock %}

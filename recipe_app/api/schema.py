@@ -15,7 +15,8 @@ from .mutations import (category_mutation,
                         recipe_review_mutation,
                         topic_mutation,
                         topic_review_mutation,
-                        user_mutations)
+                        user_mutations,
+                        click_detail_mutation)
 
 
 class Query(UserQuery, MeQuery, graphene.ObjectType):
@@ -62,5 +63,8 @@ class Mutation(user_mutations.AuthMutation, graphene.ObjectType):
 
     create_topic_review = topic_review_mutation.CreateTopicReview.Field()
     delete_topic_review = topic_review_mutation.DeleteTopicReview.Field()
+
+    click_detail = click_detail_mutation.ClickDetail.Field()
+
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
