@@ -144,3 +144,8 @@ class RecipeReview(models.Model):
 
     def __repr__(self):
         return f'Comment by {self.name}'
+
+
+class ClickStat(models.Model):
+    created = models.DateTimeField(auto_created=True, auto_now_add=True)
+    amount = models.PositiveIntegerField()

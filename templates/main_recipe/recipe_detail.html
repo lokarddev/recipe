@@ -5,4 +5,24 @@
             <img src="{{ object.image.url }}" alt="{{ recipe.recipe_title }}" class="mb-5 mt-5 shadow" style="height: 250px; width: 250px">
         {% endfor %}
         <p>{{ recipe.recipe_text|safe }}</p>
+            <form action="{% url 'recipe_list' %}">
+                <button onclick="click_count()">More recipes</button>
+            </form>
+
+        <script>
+            function click_count() {
+                let query = JSON.stringify({
+                    query: `mutation {
+                              clickDetail {
+                                clickAmount
+                              }
+                            }`
+                });
+                fetch('http://localhost:8000/graphql', {
+                    headers: {'content-type': 'application/json'},
+                    method: 'POST',
+                    body: query
+                })
+            }
+        </script>
     {% endblock %}
