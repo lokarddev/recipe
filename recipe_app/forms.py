@@ -4,28 +4,27 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class TopicCommentForm(forms.ModelForm):
-    """Форма комментария статьи"""
+    """Topic review comment form"""
     class Meta:
         model = TopicReview
         fields = ('name', 'email', 'body')
 
 
 class RecipeCommentForm(forms.ModelForm):
-    """Форма для комментария рецепта"""
+    """Recipe review comment form"""
     class Meta:
         model = RecipeReview
         fields = ('name', 'email', 'body')
 
 
 class UserForm(UserCreationForm):
-    """Форма создания пользователя"""
+    """Base user creation form"""
     class Meta(UserCreationForm.Meta):
-        """Дополнительное поле 'почта' при создании"""
         fields = UserCreationForm.Meta.fields + ('email',)
 
 
 class AddRecipeForm(forms.ModelForm):
-    """Форма добавления собственного рецепта пользователем"""
+    """Recipe add form"""
     class Meta:
         model = Recipe
         fields = ('recipe_title', 'recipe_text', 'category', 'ingredient', 'image')

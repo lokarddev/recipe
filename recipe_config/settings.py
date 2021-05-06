@@ -74,6 +74,7 @@ GRAPHENE = {
     ],
 }
 
+# graphql auth jwt settings
 GRAPHQL_JWT = {
     "JWT_VERIFY_EXPIRATION": True,
     "JWT_ALLOW_ANY_CLASSES": [

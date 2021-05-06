@@ -13,9 +13,10 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 
+# setting up celery beat schedule
 app.conf.beat_schedule = {
     'click_an_hour': {
         'task': 'recipe_app.tasks.click_to_model',
-        'schedule': 10,
+        'schedule': 3600,
     }
 }

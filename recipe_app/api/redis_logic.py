@@ -2,21 +2,38 @@ import redis
 
 
 class Click:
-    r = redis.Redis(host='localhost', port=6379, decode_responses=True)
+    """
+    This class avoids more boilerplate code in mutations, types and instantiate an object to get access to all uses of
+    data manipulation with redis
+    """
+    _instance = None
+
+    def __new__(cls):
+        """
+        The goal is to have only one endpoint to all methods.
+        Thus here is simple implementation of singleton design pattern
+        """
+        if cls._instance is None:
+            print('Creating the object')
+            cls._instance = super(Click, cls).__new__(cls)
+        return cls._instance
 
     def __init__(self):
-        pass
+        self.r = redis.Redis(host='localhost', port=6379, decode_responses=True)
 
-    @classmethod
-    def incr_click(cls):
-        return cls.r.incr('click', 1)
+    def incr_click(self):
+        """Incrementing click amount"""
+        return self.r.incr('click', 1)
 
-    @classmethod
-    def get_click(cls):
-        if not cls.r.get('click'):
+    def get_click(self):
+        """Click amount"""
+        if not self.r.get('click'):
             return 0
-        return cls.r.get('click')
+        return self.r.get('click')
 
-    @classmethod
-    def reset_click(cls):
-        return cls.r.delete('click')
+    def reset_click(self):
+        """Drop down click count"""
+        return self.r.delete('click')
+
+
+click = Click()

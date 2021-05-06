@@ -8,7 +8,7 @@ from django.urls import reverse
 
 
 class HomeView(View):
-    """Главная страница сайта. Содержит две таблицы с данными рецептов/статей в виде карточек"""
+    """Home page of a website, includes topics/recipes"""
     def get(self, request):
         context = {
             'topics': Topic.objects.filter(draft=False)[:3],
@@ -18,7 +18,7 @@ class HomeView(View):
 
 
 class CategoryView(View):
-    """Страница категорий рецептов"""
+    """Category list"""
     def get(self, request):
         context = {
             'categories': Category.objects.all()
@@ -27,21 +27,23 @@ class CategoryView(View):
 
 
 class GetData:
-    """Класс для обработки запросов к дате"""
-    def get_ingredient(self):
+    """Handling recipe"""
+    @staticmethod
+    def get_ingredient():
         return Ingredient.objects.all()
 
 
 class ConstructorView(GetData, ListView):
-    """Основной страница фильтра рецептов по категориям и содержащимся продуктам. Отображает форму для фильтрации"""
+    """Filter implementation for searching specific recipe"""
     model = Recipe
     template_name = 'main_recipe/constructor.html'
     queryset = Recipe.objects.filter(draft=False)
 
 
 class FilterView(View):
-    """Фильтр который отображается на странице Constructor.html
-        Показвыает выборку на основе отмеченных ингредиентов."""
+    """
+    View provides rendering result from constructor post request
+    """
     def get_queryset(self):
         queryset = Recipe.objects.filter(
             ingredient__in=self.request.GET.getlist('ingredient')
@@ -57,7 +59,7 @@ class FilterView(View):
 
 
 class TopicDetail(View):
-    """Детальное описание выбранной статьи"""
+    """Detailed description of selected topic"""
     def get(self, request, pk):
         topic = get_object_or_404(Topic, id=pk)
         context = {
@@ -68,7 +70,7 @@ class TopicDetail(View):
 
 
 class RecipeDetail(View):
-    """Детальное описание выбранного рецепта"""
+    """Detailed description of selected recipe"""
     def get(self, request, pk):
         context = {
             'recipe': Recipe.objects.get(id=pk),
@@ -77,7 +79,7 @@ class RecipeDetail(View):
 
 
 class CategoryList(View):
-    """Список рецептов в выбранной категории"""
+    """List of all recipes for specific category"""
     def get(self, request, pk):
         context = {
             'recipes': Recipe.objects.filter(category__id=pk)
@@ -86,7 +88,7 @@ class CategoryList(View):
 
 
 class TopicList(View):
-    """Полный список статей на сайте"""
+    """Topic list with only published objects"""
     def get(self, request):
         context = {
             'topics': Topic.objects.order_by('-created').filter(draft=False)
@@ -95,14 +97,14 @@ class TopicList(View):
 
 
 class RecipeList(GetData, ListView):
-    """Полный список рецептов на сайте"""
+    """Recipe list with only published objects"""
     model = Recipe
     queryset = Recipe.objects.order_by('created').filter(draft=False)
     template_name = 'main_recipe/recipe_list.html'
 
 
 class AddTopicReview(View):
-    """Контроллер отзыва к статье"""
+    """Recipe review controller"""
     def post(self, request, pk):
         comment = None
         topic = get_object_or_404(Topic, id=pk)
@@ -120,7 +122,7 @@ class AddTopicReview(View):
 
 
 class SearchView(ListView):
-    """Поиск рецептов из общего списка"""
+    """Searching from all recipes"""
     model = Recipe
     template_name = 'main_recipe/search_list.html'
 
@@ -134,7 +136,7 @@ class SearchView(ListView):
 
 
 class UserProfile(LoginRequiredMixin, View):
-    """Страница профиля пользователя"""
+    """Base user profile page"""
     login_url = '/login/'
     permission_denied_message = 'Вам не доступна данная страница'
     redirect_field_name = 'user_profile'
@@ -144,7 +146,7 @@ class UserProfile(LoginRequiredMixin, View):
 
 
 class AddRecipe(View):
-    """Добавление нового рецепта"""
+    """Adding new recipe"""
     def get(self, request):
         context = {
             'form': AddRecipeForm

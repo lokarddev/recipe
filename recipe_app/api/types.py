@@ -8,10 +8,11 @@ from ..models import (Category,
                       Topic,
                       TopicReview,
                       Copyright)
-from recipe_app.api.redis_logic import Click
+from recipe_app.api.redis_logic import click
 
 
 class CopyrightType(DjangoObjectType):
+    """Converting copyright model object to graphene style object type"""
 
     class Meta:
         model = Copyright
@@ -19,6 +20,7 @@ class CopyrightType(DjangoObjectType):
 
 
 class CategoryType(DjangoObjectType):
+    """Converting category model object to graphene style object type"""
 
     class Meta:
         model = Category
@@ -27,6 +29,7 @@ class CategoryType(DjangoObjectType):
 
 
 class IngredientType(DjangoObjectType):
+    """Converting ingredient model object to graphene style object type"""
 
     class Meta:
         model = Ingredient
@@ -35,6 +38,7 @@ class IngredientType(DjangoObjectType):
 
 
 class RecipeType(DjangoObjectType):
+    """Converting recipe model object to graphene style object type"""
 
     class Meta:
         model = Recipe
@@ -43,6 +47,7 @@ class RecipeType(DjangoObjectType):
 
 
 class RecipeReviewType(DjangoObjectType):
+    """Converting recipe review model object to graphene style object type"""
 
     class Meta:
         model = RecipeReview
@@ -51,6 +56,7 @@ class RecipeReviewType(DjangoObjectType):
 
 
 class TopicType(DjangoObjectType):
+    """Converting topic model object to graphene style object type"""
 
     class Meta:
         model = Topic
@@ -59,6 +65,7 @@ class TopicType(DjangoObjectType):
 
 
 class TopicReviewType(DjangoObjectType):
+    """Converting topic review model object to graphene style object type"""
 
     class Meta:
         model = TopicReview
@@ -67,7 +74,8 @@ class TopicReviewType(DjangoObjectType):
 
 
 class ClickStatType(graphene.Scalar):
+    """Creating object type to get graphql access to click detail mutation"""
 
     @classmethod
     def serialize(cls, *args, **kwargs):
-        return Click.get_click()
+        return click.get_click()

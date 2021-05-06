@@ -3,6 +3,7 @@ from graphene_file_upload.scalars import Upload
 
 
 class CategoryInput(graphene.InputObjectType):
+    """Input fields for category model"""
     id = graphene.ID()
     title = graphene.String()
     description = graphene.String()
@@ -10,12 +11,14 @@ class CategoryInput(graphene.InputObjectType):
 
 
 class IngredientInput(graphene.InputObjectType):
+    """Input fields for ingredient model"""
     id = graphene.ID()
     description = graphene.String()
     image = Upload()
 
 
 class RecipeInput(graphene.InputObjectType):
+    """Input fields for recipe model"""
     id = graphene.ID()
     recipe_title = graphene.String()
     recipe_text = graphene.String()
@@ -27,6 +30,7 @@ class RecipeInput(graphene.InputObjectType):
 
 
 class RecipeReviewInput(graphene.InputObjectType):
+    """Input fields for recipe review model"""
     id = graphene.ID()
     name = graphene.String()
     email = graphene.String()
@@ -35,6 +39,7 @@ class RecipeReviewInput(graphene.InputObjectType):
 
 
 class TopicInput(graphene.InputObjectType):
+    """Input fields for topic model"""
     id = graphene.ID()
     topic_title = graphene.String()
     topic_text = graphene.String()
@@ -45,6 +50,7 @@ class TopicInput(graphene.InputObjectType):
 
 
 class TopicReviewInput(graphene.InputObjectType):
+    """Input fields for topic review model"""
     id = graphene.ID()
     name = graphene.String()
     email = graphene.String()

@@ -9,9 +9,9 @@ class CustomUser(AbstractUser):
 
 
 class Copyright(models.Model):
-    """Информация об авторских правах проекта"""
-    copyright_title = models.CharField('Название', max_length=150)
-    copyright_text = models.TextField('Описание авторских прав')
+    """Copyright information about a project"""
+    copyright_title = models.CharField('Title', max_length=150)
+    copyright_text = models.TextField('COpyright description')
     copyright_link = models.CharField(max_length=100)
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -23,15 +23,15 @@ class Copyright(models.Model):
         return self.copyright_title
 
     class Meta:
-        verbose_name = 'Авторские права'
-        verbose_name_plural = 'Авторские права'
+        verbose_name = 'Copyright'
+        verbose_name_plural = 'Copyrights'
 
 
 class Category(models.Model):
-    """Категории доступные  для сортировки"""
-    title = models.CharField('Категория', max_length=100, unique=True)
-    description = models.TextField('Описание категории', null=True)
-    image = models.ImageField('Изображение', upload_to='category/', null=True)
+    """Category recipe"""
+    title = models.CharField('Category', max_length=100, unique=True)
+    description = models.TextField('Category description', null=True)
+    image = models.ImageField('Image', upload_to='category/', null=True)
 
     def __repr__(self):
         return self.title
@@ -40,15 +40,15 @@ class Category(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Категория'
-        verbose_name_plural = 'Категории'
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
 
 class Ingredient(models.Model):
-    """Ингридиент используемый в рецептах"""
-    title = models.CharField('Название продукта/ингридиента', max_length=50, default='Title', unique=True)
-    description = models.TextField('Описание продукта/ингридиента', default='Description')
-    image = models.ImageField('Изображение', upload_to='ingredient/', null=True)
+    """Ingredient used in recipes"""
+    title = models.CharField('Ingredient title', max_length=50, default='Title', unique=True)
+    description = models.TextField('Ingredient description')
+    image = models.ImageField('Image', upload_to='ingredient/', blank=True, null=True)
 
     def __repr__(self):
         return self.title
@@ -57,21 +57,21 @@ class Ingredient(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Ингридиент'
-        verbose_name_plural = 'Ингридиенты'
+        verbose_name = 'Ingredient'
+        verbose_name_plural = 'Ingredients'
 
 
 class Recipe(models.Model):
-    """Рецепт блюда"""
-    recipe_title = models.CharField('Название рецепта', max_length=100, unique=True)
-    recipe_text = models.TextField('Описание рецепта')
+    """Recipe model"""
+    recipe_title = models.CharField('Recipe title', max_length=100, unique=True)
+    recipe_text = models.TextField('Recipe description')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    url = models.SlugField(max_length=100, unique=True, null=True)
-    draft = models.BooleanField('Черновик', default=True, null=True)
-    ingredient = models.ManyToManyField(Ingredient, verbose_name='ингредиенты', related_name='ingredient')
-    image = models.ImageField('Изображение', upload_to='recipe/', null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=None)
+    url = models.SlugField(max_length=100, unique=True)
+    draft = models.BooleanField('Черновик', default=True)
+    ingredient = models.ManyToManyField(Ingredient, verbose_name='ingredient', related_name='ingredient')
+    image = models.ImageField('Image', upload_to='recipe/', blank=True, null=True)
 
     def __repr__(self):
         return self.recipe_title
@@ -80,20 +80,20 @@ class Recipe(models.Model):
         return self.recipe_title
 
     class Meta:
-        verbose_name = 'Рецепт'
-        verbose_name_plural = 'Рецепты'
+        verbose_name = 'Reciep'
+        verbose_name_plural = 'Recipes'
 
 
 class Topic(models.Model):
-    """Произвольная статья по теме рецептов отображаемая на главной странице"""
-    topic_title = models.CharField('Название статьи', max_length=150, unique=True)
-    topic_text = models.TextField('Текст статьи')
+    """Topic about food"""
+    topic_title = models.CharField('Topic title', max_length=150, unique=True)
+    topic_text = models.TextField('Topic text')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    recipe = models.ManyToManyField(Recipe, verbose_name='рецепт', blank=True)
-    url = models.SlugField(max_length=100, unique=True, null=True)
-    draft = models.BooleanField('Черновик', default=False, null=True)
-    image = models.ImageField('Изображение', upload_to='topic/', null=True, blank=True)
+    recipe = models.ManyToManyField(Recipe, verbose_name='recipe', blank=True)
+    url = models.SlugField(max_length=100, unique=True)
+    draft = models.BooleanField('Draft', default=False)
+    image = models.ImageField('Image', upload_to='topic/', blank=True, null=True)
 
     def __repr__(self):
         return self.topic_title
@@ -102,21 +102,21 @@ class Topic(models.Model):
         return self.topic_title
 
     class Meta:
-        verbose_name = 'Статья'
-        verbose_name_plural = 'Статьи'
+        verbose_name = 'Topic'
+        verbose_name_plural = 'Topics'
 
 
 class TopicReview(models.Model):
-    """Отзыв о статье"""
-    name = models.CharField('Имя', max_length=50)
-    email = models.EmailField('Почта', max_length=60)
-    body = models.TextField('Тело отзыва', max_length=5000)
+    """Topic review showing at topic detail page"""
+    name = models.CharField('Name', max_length=50)
+    email = models.EmailField('Email', max_length=60)
+    body = models.TextField('Review body', max_length=5000)
     created = models.DateTimeField(auto_now_add=True)
-    topic = models.ForeignKey(Topic, verbose_name='статья', related_name='review', on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topic, verbose_name='topic', related_name='review', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'отзыв о статье'
-        verbose_name_plural = 'отзывы о статье'
+        verbose_name = 'Topic review'
+        verbose_name_plural = 'Topic reviews'
         ordering = ['created']
 
     def __str__(self):
@@ -127,16 +127,16 @@ class TopicReview(models.Model):
 
 
 class RecipeReview(models.Model):
-    """Отзыв о рецепте"""
-    name = models.CharField('Имя', max_length=50)
-    email = models.EmailField('Почта', max_length=60)
-    body = models.TextField('Тело отзыва', max_length=5000)
+    """Recipe review showing at topic detail page"""
+    name = models.CharField('Name', max_length=50)
+    email = models.EmailField('Email', max_length=60)
+    body = models.TextField('Review body', max_length=5000)
     created = models.DateTimeField(auto_now_add=True)
-    recipe = models.ForeignKey(Recipe, verbose_name='рецепт', related_name='review', on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, verbose_name='recipe', related_name='review', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'отзыв о рецепте'
-        verbose_name_plural = 'отзывы о рецепте'
+        verbose_name = 'recipe review'
+        verbose_name_plural = 'recipe review'
         ordering = ['created']
 
     def __str__(self):
@@ -147,5 +147,6 @@ class RecipeReview(models.Model):
 
 
 class ClickStat(models.Model):
+    """Clicking statistic provided by graphql mutations and template onclick events"""
     created = models.DateTimeField(auto_created=True, auto_now_add=True)
     amount = models.PositiveIntegerField()

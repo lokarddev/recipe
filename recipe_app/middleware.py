@@ -3,6 +3,9 @@ from django.http import HttpResponse
 
 
 class StackOverflow:
+    """
+    Simple middleware to handle some unexpected exceptions
+    """
 
     def __init__(self, get_response):
         self.get_response = get_response

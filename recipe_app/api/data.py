@@ -1,8 +1,11 @@
 from recipe_app.models import Recipe, Category, Topic, TopicReview, RecipeReview, Ingredient
 
 
-def recipe_create(data):
+# this file provides more structured model manipulation in mutations
 
+
+def recipe_create(data):
+    """Create new recipe with graphql"""
     recipe = Recipe(
         recipe_title=data.recipe_title,
         recipe_text=data.recipe_text,
@@ -16,6 +19,7 @@ def recipe_create(data):
 
 
 def recipe_update(data):
+    """Update recipe with graphql"""
     recipe = Recipe.objects.get(pk=data.id)
     if recipe:
         for item in data:
@@ -26,6 +30,7 @@ def recipe_update(data):
 
 
 def recipe_review_create(data):
+    """Create new recipe review with graphql"""
     recipe = Recipe.objects.get(recipe_title=data.recipe)
     recipe_review_instance = RecipeReview(
             name=data.name,
@@ -38,6 +43,7 @@ def recipe_review_create(data):
 
 
 def topic_create(data):
+    """Create new topic with graphql"""
     topic_recipe = Recipe.objects.filter(pk=data.recipe['id'])
     topic = Topic(
         topic_title=data.topic_title,
@@ -51,6 +57,7 @@ def topic_create(data):
 
 
 def topic_update(data):
+    """Update topic with graphql"""
     topic = Topic.objects.get(pk=data.id)
     if topic:
         for item in data:
@@ -61,6 +68,7 @@ def topic_update(data):
 
 
 def topic_review_create(data):
+    """Create new topic review with graphql"""
     topic_review = TopicReview(
         name=data.name,
         email=data.email,
@@ -72,6 +80,7 @@ def topic_review_create(data):
 
 
 def ingredient_create(data):
+    """Create new recipe with graphql"""
     ingredient = Ingredient(
         description=data.description,
         image=data.image
@@ -81,6 +90,7 @@ def ingredient_create(data):
 
 
 def ingredient_update(data):
+    """Create new recipe with graphql"""
     ingredient = Ingredient.objects.get(pk=data.id)
     if ingredient:
         for item in data:
@@ -91,6 +101,7 @@ def ingredient_update(data):
 
 
 def category_create(data):
+    """Create new recipe with graphql"""
     category = Category(
         title=data.title,
         description=data.description,
@@ -100,6 +111,7 @@ def category_create(data):
 
 
 def category_update(data):
+    """Create new recipe with graphql"""
     category = Category.objects.get(pk=data.id)
     if category:
         for item in data:

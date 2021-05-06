@@ -1,6 +1,6 @@
 import graphene
 from recipe_app.api.types import ClickStatType
-from recipe_app.api.redis_logic import Click
+from recipe_app.api.redis_logic import click
 
 
 class ClickDetail(graphene.Mutation):
@@ -9,6 +9,6 @@ class ClickDetail(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info):
-        Click.incr_click()
-        amount = {'click': Click.get_click()}
+        click.incr_click()
+        amount = {'click': click.get_click()}
         return ClickDetail(click_amount=amount)

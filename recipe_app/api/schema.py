@@ -20,6 +20,9 @@ from .mutations import (category_mutation,
 
 
 class Query(UserQuery, MeQuery, graphene.ObjectType):
+    """
+    Query provides simple access to all data fetching
+    """
 
     category = relay.Node.Field(CategoryType)
     categories = DjangoFilterConnectionField(CategoryType)
@@ -41,6 +44,7 @@ class Query(UserQuery, MeQuery, graphene.ObjectType):
 
 
 class Mutation(user_mutations.AuthMutation, graphene.ObjectType):
+    """Mutation class provides all CRUD data manipulation with graphql"""
 
     create_category = category_mutation.CreateCategory.Field()
     update_category = category_mutation.UpdateCategory.Field()
@@ -67,4 +71,5 @@ class Mutation(user_mutations.AuthMutation, graphene.ObjectType):
     click_detail = click_detail_mutation.ClickDetail.Field()
 
 
+# define base schema
 schema = graphene.Schema(query=Query, mutation=Mutation)
