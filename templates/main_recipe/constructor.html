@@ -1,6 +1,6 @@
 {% extends 'main_recipe/base.html' %}
     {% block content %}
-        <h3>Конструктор рецептов</h3>
+        <h3>Recipe constructor</h3>
         <form action="{% url 'filter' %}" method="get">
             <div>
                 {% for ing in view.get_ingredient %}
@@ -11,7 +11,7 @@
                         <span>{{ ing.title }}</span>
                     </li>
                 {% endfor %}
-                <button type="submit">Найти</button>
+                <button type="submit">Search</button>
             </div>
         </form>
     {% endblock %}

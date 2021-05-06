@@ -7,14 +7,14 @@ class TopicCommentForm(forms.ModelForm):
     """Topic review comment form"""
     class Meta:
         model = TopicReview
-        fields = ('name', 'email', 'body')
+        fields = ('name', 'body')
 
 
 class RecipeCommentForm(forms.ModelForm):
     """Recipe review comment form"""
     class Meta:
         model = RecipeReview
-        fields = ('name', 'email', 'body')
+        fields = ('name', 'body')
 
 
 class UserForm(UserCreationForm):

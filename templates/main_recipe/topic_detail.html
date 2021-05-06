@@ -3,12 +3,10 @@
         <h3>{{ topic.topic_title }}</h3>
         <div class="row">
             <div class="col-md-8">
-                {{ topic.topic_text | safe }}
+                <p>{{ topic.topic_text | safe }}</p>
             </div>
             <div class="col-md-4">
-                {% for object in topic.get_queryset_image %}
-                    <img src="{{ object.image.url }}" alt="{{ topic.topic_title }}" class="mb-5 mt-5 shadow" style="height: 250px; width: 250px">
-                {% endfor %}
+                <img src="{{ topic.image_url|default_if_none:"#" }}" alt="{{ topic.topic_title }}" class="mb-5 mt-5 shadow" style="height: 250px; width: 250px">
             </div>
         <div>
             {% for com in comments %}
@@ -20,18 +18,15 @@
                 <form action="{% url 'topic_review' topic.id %}" method="post">
                     {% csrf_token %}
                     <div>
-                        <label> Комментарий
+                        <label> Review
                             <textarea required="" name="body" class="form-control border mt-3" rows="5"></textarea>
                         </label>
                     </div>
                     <div>
-                        <label> Имя
+                        <label> Name
                             <input type="text" name="name">
                         </label>
-                        <label> Почта
-                            <input type="email" name="email">
-                        </label>
-                        <button type="submit">Отправить отзыв</button>
+                        <button type="submit">Add review</button>
                     </div>
                 </form>
             </div>

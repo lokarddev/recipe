@@ -51,7 +51,7 @@ class RecipeReviewType(DjangoObjectType):
 
     class Meta:
         model = RecipeReview
-        filter_fields = ['id', 'name', 'email', 'recipe', 'created']
+        filter_fields = ['id', 'name', 'recipe', 'created']
         interfaces = (relay.Node, )
 
 
@@ -69,7 +69,7 @@ class TopicReviewType(DjangoObjectType):
 
     class Meta:
         model = TopicReview
-        filter_fields = ['id', 'name', 'email', 'topic', 'created']
+        filter_fields = ['id', 'name', 'topic', 'created']
         interfaces = (relay.Node, )
 
 

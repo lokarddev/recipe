@@ -89,7 +89,7 @@ class CategoryAdmin(SummernoteModelAdmin, GetImage):
 @admin.register(TopicReview)
 class TopicReviewAdmin(admin.ModelAdmin):
     """Topic review admin panel"""
-    list_display = ('name', 'email', 'topic', 'created')
+    list_display = ('name', 'topic', 'created')
     list_display_links = ('topic',)
     list_filter = ('topic', 'created')
 
@@ -97,7 +97,7 @@ class TopicReviewAdmin(admin.ModelAdmin):
 @admin.register(RecipeReview)
 class RecipeReviewAdmin(admin.ModelAdmin):
     """Recipe review admin panel"""
-    list_display = ('name', 'email', 'recipe', 'created')
+    list_display = ('name', 'recipe', 'created')
     list_display_links = ('recipe',)
     list_filter = ('recipe', 'created')
 

@@ -1,12 +1,12 @@
 {% extends 'main_recipe/base.html' %}
 {% block content %}
         <div>
-            <a href="{% url 'account_change_password' %}">Сменить пароль</a>
+            <a href="{% url 'account_change_password' %}">Change password</a>
         </div>
         <div>
-            <a href={% url 'account_logout' %}>Выйти</a>
+            <a href={% url 'account_logout' %}>Log out</a>
         </div>
         <div>
-            <a href="{% url 'add_recipe' %}">Добавить рецепт</a>
+            <a href="{% url 'add_recipe' %}">Add recipe</a>
         </div>
 {% endblock %}

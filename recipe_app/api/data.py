@@ -10,7 +10,6 @@ def recipe_create(data):
         recipe_title=data.recipe_title,
         recipe_text=data.recipe_text,
         url=data.url,
-        draft=data.draft,
         image=data.image,
         category=Category.objects.get(pk=data.category['id'])
     )
@@ -34,7 +33,6 @@ def recipe_review_create(data):
     recipe = Recipe.objects.get(recipe_title=data.recipe)
     recipe_review_instance = RecipeReview(
             name=data.name,
-            email=data.email,
             body=data.body,
             recipe=Recipe.objects.get(pk=data.recipe['id'])
         )
@@ -49,7 +47,6 @@ def topic_create(data):
         topic_title=data.topic_title,
         topic_text=data.topic_text,
         url=data.url,
-        draft=data.draft
     )
     topic.save()
     topic.recipe.set(topic_recipe)
@@ -71,7 +68,6 @@ def topic_review_create(data):
     """Create new topic review with graphql"""
     topic_review = TopicReview(
         name=data.name,
-        email=data.email,
         body=data.body,
         topic=Topic.objects.get(pk=data.topic['id'])
     )

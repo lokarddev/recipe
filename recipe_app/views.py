@@ -72,8 +72,10 @@ class TopicDetail(View):
 class RecipeDetail(View):
     """Detailed description of selected recipe"""
     def get(self, request, pk):
+        recipe = get_object_or_404(Recipe, id=pk)
         context = {
-            'recipe': Recipe.objects.get(id=pk),
+            'recipe': recipe,
+            'comments': recipe.review.all()
         }
         return render(request, template_name='main_recipe/recipe_detail.html', context=context)
 

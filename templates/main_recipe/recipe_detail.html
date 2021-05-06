@@ -1,13 +1,39 @@
 {% extends 'main_recipe/base.html' %}
     {% block content %}
         <h3>{{ recipe.recipe_title }}</h3>
-        {% for object in recipe.get_queryset_image %}
-            <img src="{{ object.image.url }}" alt="{{ recipe.recipe_title }}" class="mb-5 mt-5 shadow" style="height: 250px; width: 250px">
-        {% endfor %}
-        <p>{{ recipe.recipe_text|safe }}</p>
-            <form action="{% url 'recipe_list' %}">
-                <button onclick="click_count()">More recipes</button>
-            </form>
+        <div class="row">
+            <div class="col-md-8">
+                <p>{{ recipe.recipe_text|safe }}</p>
+            </div>
+            <div class="col-md-4">
+                <img src="{{ recipe.image_url|default_if_none:'#' }}" alt="{{ recipe.recipe_title }}" class="mb-5 mt-5 shadow" style="height: 250px; width: 250px">
+            </div>
+        </div>
+        <form action="{% url 'recipe_list' %}">
+            <button onclick="click_count()">More recipes</button>
+        </form>
+        <div>
+            {% for com in comments %}
+                {{ com.name }}
+                {{ com.body }}
+            {% endfor %}
+        </div>
+            <div>
+                <form action="{% url 'topic_review' topic.id %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <label> Review
+                            <textarea required="" name="body" class="form-control border mt-3" rows="5"></textarea>
+                        </label>
+                    </div>
+                    <div>
+                        <label> Name
+                            <input type="text" name="name">
+                        </label>
+                        <button type="submit">Add review</button>
+                    </div>
+                </form>
+            </div>
 
         <script>
             function click_count() {

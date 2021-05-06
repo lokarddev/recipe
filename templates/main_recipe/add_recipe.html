@@ -3,30 +3,30 @@
     <form method="post">
         {% csrf_token %}
         <div>
-            <p>Вы можете выбрать ингредиенты из списка, или перечислить их в описании рецепта.
-                Каждый рецепт должен содержать: название, категорию, ингредиенты, пошаговое описание приготовления.
-                В описании рецепта не забывайте указывать вес используемых продуктов.
-                После того, как вы добавите рецепт, он пройдет стадию модерации и затем будет доступен всем пользователям.
+            <p>You can select ingredients from our available list, or list them in the recipe description.
+                Each recipe should contain: name, category, ingredients, step-by-step description of the preparation.
+                In the recipe description, do not forget to indicate the weight of the products used.
+                After you add a recipe, it will go through the moderation stage and then will be available to all users.
             </p>
-            <h3>Название рецепта</h3>
+            <h3>Recipe title</h3>
             {{ form.recipe_title }}
         </div>
         <div>
-            <h4>Категория</h4>
+            <h4>Category</h4>
             {{ form.category }}
         </div>
         <div>
-            <h4>Ингредиенты</h4>
+            <h4>Ingredient</h4>
             {{ form.ingredient }}
         </div>
         <div>
-            <h4>Описание рецепта</h4>
+            <h4>Description</h4>
             {{ form.recipe_text }}
         </div>
         <div>
-            <h4>Изображение</h4>
+            <h4>Image</h4>
             {{ form.image }}
         </div>
-    <input type="submit" value="Добавить рецепт">
+    <input type="submit" value="Add recipe">
     </form>
 {% endblock %}

@@ -33,6 +33,11 @@ class Category(models.Model):
     description = models.TextField('Category description', null=True)
     image = models.ImageField('Image', upload_to='category/', null=True)
 
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+
     def __repr__(self):
         return self.title
 
@@ -73,6 +78,11 @@ class Recipe(models.Model):
     ingredient = models.ManyToManyField(Ingredient, verbose_name='ingredient', related_name='ingredient')
     image = models.ImageField('Image', upload_to='recipe/', blank=True, null=True)
 
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+
     def __repr__(self):
         return self.recipe_title
 
@@ -95,6 +105,11 @@ class Topic(models.Model):
     draft = models.BooleanField('Draft', default=False)
     image = models.ImageField('Image', upload_to='topic/', blank=True, null=True)
 
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+
     def __repr__(self):
         return self.topic_title
 
@@ -109,7 +124,6 @@ class Topic(models.Model):
 class TopicReview(models.Model):
     """Topic review showing at topic detail page"""
     name = models.CharField('Name', max_length=50)
-    email = models.EmailField('Email', max_length=60)
     body = models.TextField('Review body', max_length=5000)
     created = models.DateTimeField(auto_now_add=True)
     topic = models.ForeignKey(Topic, verbose_name='topic', related_name='review', on_delete=models.CASCADE)
@@ -129,7 +143,6 @@ class TopicReview(models.Model):
 class RecipeReview(models.Model):
     """Recipe review showing at topic detail page"""
     name = models.CharField('Name', max_length=50)
-    email = models.EmailField('Email', max_length=60)
     body = models.TextField('Review body', max_length=5000)
     created = models.DateTimeField(auto_now_add=True)
     recipe = models.ForeignKey(Recipe, verbose_name='recipe', related_name='review', on_delete=models.CASCADE)
