@@ -133,7 +133,7 @@ class AddRecipeReview(View):
             'comments': recipe.review.all(),
             'comment': review
         }
-        form = TopicCommentForm(request.POST)
+        form = RecipeCommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.recipe = recipe
