@@ -18,7 +18,8 @@ urlpatterns = [
     path('topic_list/', TopicList.as_view(), name='topic_list'),
     path('topic_detail/<int:pk>/', TopicDetail.as_view(), name='topic_detail'),
     path('recipe_detail/<int:pk>/', RecipeDetail.as_view(), name='recipe_detail'),
-    path('review/<int:pk>/', AddTopicReview.as_view(), name='topic_review')
+    path('topic_review/<int:pk>/', AddTopicReview.as_view(), name='topic_review'),
+    path('recipe_review/<int:pk>/', AddRecipeReview.as_view(), name='recipe_review')
 ]
 
 

@@ -19,7 +19,7 @@
             {% endfor %}
         </div>
             <div>
-                <form action="{% url 'topic_review' topic.id %}" method="post">
+                <form action="{% url 'recipe_review' recipe.id %}" method="post">
                     {% csrf_token %}
                     <div>
                         <label> Review

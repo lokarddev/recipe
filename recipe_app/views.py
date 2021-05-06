@@ -106,7 +106,7 @@ class RecipeList(GetData, ListView):
 
 
 class AddTopicReview(View):
-    """Recipe review controller"""
+    """Topic review controller"""
     def post(self, request, pk):
         comment = None
         topic = get_object_or_404(Topic, id=pk)
@@ -119,6 +119,24 @@ class AddTopicReview(View):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.topic = topic
+            comment.save()
+        return render(request, template_name='main_recipe/topic_detail.html', context=context)
+
+
+class AddRecipeReview(View):
+    """Recipe review controller"""
+    def post(self, request, pk):
+        review = None
+        recipe = get_object_or_404(Recipe, id=pk)
+        context = {
+            'topic': recipe,
+            'comments': recipe.review.all(),
+            'comment': review
+        }
+        form = TopicCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.recipe = recipe
             comment.save()
         return render(request, template_name='main_recipe/topic_detail.html', context=context)
 
