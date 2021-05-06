@@ -56,3 +56,6 @@ For running celery task manager you should add some commands from project folder
 1. `celery -A recipe_config worker -l INFO`
 2. `celery -A recipe_config beat -l INFO`
 
+
+All graphql queries and mutations you can test at `http://localhost:8000/graphql`
+You able use it from browser or with some third party apps like Postman or Insomnia
