@@ -14,7 +14,6 @@ class Click:
         Thus here is simple implementation of singleton design pattern
         """
         if cls._instance is None:
-            print('Creating the object')
             cls._instance = super(Click, cls).__new__(cls)
         return cls._instance
 
